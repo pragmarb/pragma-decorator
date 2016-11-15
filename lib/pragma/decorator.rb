@@ -1,4 +1,5 @@
-require "pragma/decorator/version"
+# frozen_string_literal: true
+require 'pragma/decorator/version'
 
 module Pragma
   module Decorator
