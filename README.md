@@ -96,8 +96,8 @@ This will define a `data` collection on the decorator that will contain the obje
 decorator. It will also decorate each object in this collection with a resource-specific decorator.
 
 By default, the resource decorator is simply the `Resource` class in the same namespace as the
-collection decorator. It is highly recommended to follow this naming convention, but you can specify
-a different resource decorator by calling `decorate_items_with`:
+collection decorator. It is recommended to follow this naming convention, but you can specify a
+different resource decorator by calling `#decorate_items_with`:
 
 ```ruby
 module API
@@ -149,6 +149,7 @@ This will create the following JSON representation:
   "next_page": null,
   "pages": 2
 }
+```
 
 The pagination mixin seamlessly integrates with both [Kaminari](https://github.com/amatsuda/kaminari)
 and [will_paginate](https://github.com/mislav/will_paginate). The property names are the same,
