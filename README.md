@@ -8,7 +8,7 @@
 Decorators are a way to easily convert your API resources into JSON with minimum hassle.
 
 They are built on top of [ROAR](https://github.com/apotonick/roar) but provide some useful helpers
-for rendering collection, including pagination metadata and expanding associations.
+for rendering collections, including pagination metadata and expanding associations.
 
 ## Installation
 
