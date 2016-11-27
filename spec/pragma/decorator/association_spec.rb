@@ -37,7 +37,11 @@ RSpec.describe Pragma::Decorator::Association do
 
   context 'when the association is not expanded' do
     it "renders the associated object's ID" do
-      expect(result).to eq('customer' => { 'id' => customer.id })
+      expect(result).to include(
+        'customer' => a_hash_including(
+          'id' => customer.id
+        )
+      )
     end
   end
 
@@ -45,13 +49,15 @@ RSpec.describe Pragma::Decorator::Association do
     let(:expand) { ['customer'] }
 
     it 'renders the associated object' do
-      expect(result).to eq('customer' => {
-        'id' => customer.id,
-        'full_name' => customer.full_name,
-        'company' => {
-          'id' => company.id
-        }
-      })
+      expect(result).to include(
+        'customer' => a_hash_including(
+          'id' => customer.id,
+          'full_name' => customer.full_name,
+          'company' => a_hash_including(
+            'id' => company.id
+          )
+        )
+      )
     end
   end
 
@@ -59,14 +65,16 @@ RSpec.describe Pragma::Decorator::Association do
     let(:expand) { ['customer', 'customer.company'] }
 
     it 'renders the associated objects' do
-      expect(result).to eq('customer' => {
-        'id' => customer.id,
-        'full_name' => customer.full_name,
-        'company' => {
-          'id' => company.id,
-          'name' => company.name
-        }
-      })
+      expect(result).to include(
+        'customer' => a_hash_including(
+          'id' => customer.id,
+          'full_name' => customer.full_name,
+          'company' => a_hash_including(
+            'id' => company.id,
+            'name' => company.name
+          )
+        )
+      )
     end
   end
 

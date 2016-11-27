@@ -62,6 +62,7 @@ This will produce the following JSON:
 
 ```json
 {
+  "type": "user",
   "id": 1,
   "email": "jdoe@example.com",
   "full_name": "John Doe"
@@ -72,6 +73,59 @@ Since Pragma::Decorator is built on top of [ROAR](https://github.com/apotonick/r
 turn, is built on top of [Representable](https://github.com/apotonick/representable)), you should
 consult their documentation for the basic usage of decorators; the rest of this section only covers
 the features provided specifically by Pragma::Decorator.
+
+### Object types
+
+By default, decorators will expose the type of the decorated object. From our previous example:
+
+```json
+{
+  "type": "user",
+  "id": 1,
+  "email": "jdoe@example.com",
+  "full_name": "John Doe"
+}
+```
+
+If you want to disable this feature, you can disable the property:
+
+```ruby
+module API
+  module V1
+    module User
+      module Decorator
+        class Resource < Pragma::Decorator::Base
+          property :type, if: false
+
+          # or
+
+          def type
+            nil
+          end
+        end
+      end
+    end
+  end
+end
+```
+
+You can also set a custom type name (just make sure to use it consistently!):
+
+```ruby
+module API
+  module V1
+    module User
+      module Decorator
+        class Resource < Pragma::Decorator::Base
+          def type
+            :custom_type
+          end
+        end
+      end
+    end
+  end
+end
+```
 
 ### Associations
 
