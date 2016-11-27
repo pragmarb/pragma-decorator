@@ -31,11 +31,6 @@ module Pragma
             decorator.decorated.send(reflection.property)
           when :decorator
             decorator.send(reflection.property)
-          else
-            fail(
-              ArgumentError,
-              "'#{reflection.options[:exec_context]}' is not a valid value for :exec_context."
-            )
           end
         end
 

@@ -30,9 +30,10 @@ module Pragma
         def initialize(type, property, **options)
           @type = type
           @property = property
-          @options = {
-            exec_context: :decorated
-          }.merge(options)
+          @options = options
+
+          normalize_options
+          validate_options
         end
 
         # Returns whether the association is expandable.
@@ -40,6 +41,25 @@ module Pragma
         # @return [Boolean]
         def expandable?
           options[:expandable]
+        end
+
+        private
+
+        def normalize_options
+          @options = {
+            expandable: false,
+            render_nil: false,
+            exec_context: :decorated
+          }.merge(options).tap do |opts|
+            opts[:exec_context] = opts[:exec_context].to_sym
+          end
+        end
+
+        def validate_options
+          fail(
+            ArgumentError,
+            "'#{options[:exec_context]}' is not a valid value for :exec_context."
+          ) unless options[:exec_context].in?([:decorator, :decorated])
         end
       end
     end
