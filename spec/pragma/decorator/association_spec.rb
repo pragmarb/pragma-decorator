@@ -69,4 +69,25 @@ RSpec.describe Pragma::Decorator::Association do
       })
     end
   end
+
+  context 'when render_nil is false' do
+    let(:customer) { nil }
+
+    it 'does not render nil associations' do
+      expect(result).not_to have_key('customer')
+    end
+  end
+
+  context 'when render_nil is true' do
+    before do
+      decorator_klass.send(:belongs_to, :customer,
+        decorator: customer_decorator_klass,
+        render_nil: true
+      )
+    end
+
+    it 'renders nil associations' do
+      expect(result).to have_key('customer')
+    end
+  end
 end

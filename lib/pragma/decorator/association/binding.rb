@@ -34,6 +34,8 @@ module Pragma
         #
         # @return [Hash]
         def unexpanded_hash
+          return unless associated_object
+
           {
             id: associated_object.id
           }
@@ -53,6 +55,8 @@ module Pragma
         #
         # @return [Hash]
         def expanded_hash(expand)
+          return unless associated_object
+
           options = {
             user_options: {
               expand: flatten_expand(expand)
@@ -73,6 +77,8 @@ module Pragma
         #
         # @return [Hash|Pragma::Decorator::Base]
         def render(expand)
+          return unless associated_object
+
           expand ||= []
 
           if expand.any? { |value| value.to_s == reflection.property.to_s }
