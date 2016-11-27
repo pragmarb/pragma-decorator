@@ -11,6 +11,19 @@ module Pragma
     # @author Alessandro Desantis
     class Base < Roar::Decorator
       feature Roar::JSON
+
+      def to_hash(options = {}, binding_builder = Representable::Hash::Binding)
+        @last_options = options
+        super(options, binding_builder)
+      end
+
+      def options
+        @last_options
+      end
+
+      def user_options
+        @last_options[:user_options] || {}
+      end
     end
   end
 end
