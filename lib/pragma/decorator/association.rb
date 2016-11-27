@@ -29,7 +29,7 @@ module Pragma
         end
       end
 
-      module ClassMethods
+      module ClassMethods # rubocop:disable Style/Documentation
         # Defines a +belongs_to+ association.
         #
         # See {Association::Reflection#initialize} for the list of available options.
@@ -46,7 +46,7 @@ module Pragma
         #
         # @param property [Symbol] the property containing the associated object
         # @param options [Hash] the options of the association
-        def has_one(property, options = {})
+        def has_one(property, options = {}) # rubocop:disable Style/PredicateName
           define_association :has_one, property, options
         end
 

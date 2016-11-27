@@ -22,31 +22,64 @@ module Pragma
           @decorator = decorator
         end
 
+        # Returns the associated object.
+        #
+        # @return [Object]
+        def associated_object
+          decorator.decorated.send(reflection.property)
+        end
+
+        # Returns the unexpanded hash for the associated object (i.e. a hash with only the +id+
+        # property).
+        #
+        # @return [Hash]
+        def unexpanded_hash
+          {
+            id: associated_object.id
+          }
+        end
+
+        # Returns the expanded hash for the associated object.
+        #
+        # If a decorator was specified for the association, first decorates the associated object,
+        # then calls +#to_hash+ to render it as a hash.
+        #
+        # If no decorator was specified, calls +#as_json+ on the associated object.
+        #
+        # In any case, passes all nested associations as the +expand+ user option of the method
+        # called.
+        #
+        # @param expand [Array<String>] the associations to expand
+        #
+        # @return [Hash]
+        def expanded_hash(expand)
+          options = {
+            user_options: {
+              expand: flatten_expand(expand)
+            }
+          }
+
+          if reflection.options[:decorator]
+            reflection.options[:decorator].new(associated_object).to_hash(options)
+          else
+            associated_object.as_json(options)
+          end
+        end
+
         # Renders the unexpanded or expanded associations, depending on the +expand+ user option
         # passed to the decorator.
         #
-        # @param expand [Array<String>] the associations to expand for this representation
+        # @param expand [Array<String>] the associations to expand
         #
         # @return [Hash|Pragma::Decorator::Base]
         def render(expand)
           expand ||= []
-          associated_object = decorator.decorated.send(reflection.property)
 
-          unless expand.any? { |value| value.to_s == reflection.property.to_s }
-            return {
-              id: associated_object.id
-            }
+          if expand.any? { |value| value.to_s == reflection.property.to_s }
+            expanded_hash(expand)
+          else
+            unexpanded_hash
           end
-
-          if reflection.options[:decorator]
-            associated_object = reflection.options[:decorator].new(
-              associated_object
-            )
-          end
-
-          associated_object.to_hash(user_options: {
-            expand: flatten_expand(expand)
-          })
         end
 
         private
