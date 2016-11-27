@@ -37,18 +37,6 @@ module Pragma
         def expandable?
           options[:expandable]
         end
-
-        # Renders the unexpanded or expanded associations, depending on the +expand+ user option
-        # passed to the decorator.
-        #
-        # @param expand [Array|Hash] the associations to expand for this representation
-        #
-        # @return [Hash|Pragma::Decorator::Base]
-        def render(_user_options)
-          {
-            id: @decorator.decorated.send(property).id
-          }
-        end
       end
     end
   end
