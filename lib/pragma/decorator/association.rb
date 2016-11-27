@@ -64,7 +64,7 @@ module Pragma
 
         def create_association_getter(property)
           class_eval <<~RUBY
-            def #{property}
+            private def _#{property}_association
               @association_bindings[:#{property}].render(user_options[:expand])
             end
           RUBY
@@ -72,14 +72,15 @@ module Pragma
 
         def create_association_property(property_name)
           options = {
-            exec_context: :decorator
+            exec_context: :decorator,
+            as: property_name
           }.tap do |opts|
             if @associations[property_name].options.key?(:render_nil)
               opts[:render_nil] = @associations[property_name].options[:render_nil]
             end
           end
 
-          property(property_name, options)
+          property("_#{property_name}_association", options)
         end
       end
     end

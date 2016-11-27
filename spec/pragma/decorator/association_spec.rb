@@ -113,4 +113,25 @@ RSpec.describe Pragma::Decorator::Association do
       expect { result }.to raise_error(Pragma::Decorator::Association::UnexpandableError)
     end
   end
+
+  context 'when exec_context is decorator' do
+    before do
+      decorator_klass.class_eval do
+        def customer
+          OpenStruct.new(id: 'customer_on_decorator')
+        end
+      end
+
+      decorator_klass.send(:belongs_to, :customer,
+        decorator: customer_decorator_klass,
+        exec_context: :decorator
+      )
+    end
+
+    it 'calls the getter on the decorator' do
+      expect(result).to include('customer' => a_hash_including(
+        'id' => 'customer_on_decorator'
+      ))
+    end
+  end
 end

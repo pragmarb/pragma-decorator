@@ -25,10 +25,14 @@ module Pragma
         # @option options [Boolean] :expandable (`false`) whether the association is expandable
         # @option options [Class] :decorator the decorator to use for the associated object
         # @option options [Boolean] :render_nil (`true`) whether to render a +nil+ association
+        # @option options [Symbol] :exec_context (`decorated`) whether to call the getter on the
+        #   decorator (+decorator+) or the decorated object (+decorated+)
         def initialize(type, property, **options)
           @type = type
           @property = property
-          @options = options
+          @options = {
+            exec_context: :decorated
+          }.merge(options)
         end
 
         # Returns whether the association is expandable.

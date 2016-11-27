@@ -26,7 +26,17 @@ module Pragma
         #
         # @return [Object]
         def associated_object
-          decorator.decorated.send(reflection.property)
+          case reflection.options[:exec_context]
+          when :decorated
+            decorator.decorated.send(reflection.property)
+          when :decorator
+            decorator.send(reflection.property)
+          else
+            fail(
+              ArgumentError,
+              "'#{reflection.options[:exec_context]}' is not a valid value for :exec_context."
+            )
+          end
         end
 
         # Returns the unexpanded hash for the associated object (i.e. a hash with only the +id+
