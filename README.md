@@ -5,7 +5,7 @@
 [![Code Climate](https://img.shields.io/codeclimate/github/pragmarb/pragma-decorator.svg?maxAge=3600&style=flat-square)](https://codeclimate.com/github/pragmarb/pragma-decorator)
 [![Coveralls](https://img.shields.io/coveralls/pragmarb/pragma-decorator.svg?maxAge=3600&style=flat-square)](https://coveralls.io/github/pragmarb/pragma-decorator)
 
-Decorators are a way to easily convert your API resources into JSON with minimum hassle.
+Decorators are a way to easily convert your API resources to JSON with minimum hassle.
 
 They are built on top of [ROAR](https://github.com/apotonick/roar) but provide some useful helpers
 for rendering collections, including pagination metadata and expanding associations.
