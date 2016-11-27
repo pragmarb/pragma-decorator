@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Pragma
   module Decorator
     module Association
@@ -36,7 +37,7 @@ module Pragma
         # @param expand [Array|Hash] the associations to expand for this representation
         #
         # @return [Hash|Pragma::Decorator::Base]
-        def render(user_options)
+        def render(_user_options)
           {
             id: @decorator.decorated.send(property).id
           }

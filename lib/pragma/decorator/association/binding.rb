@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Pragma
   module Decorator
     module Association
@@ -31,13 +32,17 @@ module Pragma
           expand ||= []
           associated_object = decorator.decorated.send(reflection.property)
 
-          return {
-            id: associated_object.id
-          } unless expand.any? { |value| value.to_s == reflection.property.to_s }
+          unless expand.any? { |value| value.to_s == reflection.property.to_s }
+            return {
+              id: associated_object.id
+            }
+          end
 
-          associated_object = reflection.options[:decorator].new(
-            associated_object
-          ) if reflection.options[:decorator]
+          if reflection.options[:decorator]
+            associated_object = reflection.options[:decorator].new(
+              associated_object
+            )
+          end
 
           associated_object.to_hash(user_options: {
             expand: flatten_expand(expand)
