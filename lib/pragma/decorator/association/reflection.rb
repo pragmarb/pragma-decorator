@@ -59,7 +59,7 @@ module Pragma
           fail(
             ArgumentError,
             "'#{options[:exec_context]}' is not a valid value for :exec_context."
-          ) unless options[:exec_context].in?([:decorator, :decorated])
+          ) unless [:decorator, :decorated].include?(options[:exec_context])
         end
       end
     end
