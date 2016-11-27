@@ -17,7 +17,7 @@ module Pragma
         end
       end
 
-      # Inizialies the decorator and bindings for all the associations.
+      # Inizializes the decorator and bindings for all the associations.
       #
       # @see Association::Binding
       def initialize(*)
@@ -70,12 +70,16 @@ module Pragma
           RUBY
         end
 
-        def create_association_property(property)
-          property(
-            property,
-            exec_context: :decorator,
-            render_nil: @associations[property].options[:render_nil]
-          )
+        def create_association_property(property_name)
+          options = {
+            exec_context: :decorator
+          }.tap do |opts|
+            if @associations[property_name].options.key?(:render_nil)
+              opts[:render_nil] = @associations[property_name].options[:render_nil]
+            end
+          end
+
+          property(property_name, options)
         end
       end
     end
