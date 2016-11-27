@@ -182,7 +182,9 @@ Rendering an invoice will now create the following representation:
 
 ```json
 {
-  "customer": 19
+  "customer": {
+    "id": 19
+  }
 }
 ```
 
