@@ -142,13 +142,22 @@ This also works for nested associations. For instance, if the customer has a `co
 marked as expandable, you can pass `expand[]=customer&expand[]=customer.company` to get that
 association expanded too.
 
-In order for association expansion to work, you will have to pass the request parameters to the
+In order for association expansion to work, you will have to pass the associations to expand to the
 representer as a user option:
 
 ```ruby
 decorator = API::V1::Invoice::Decorator::Resource.new(invoice)
 decorator.to_json(user_options: {
-  params: params # e.g. the params available to a Rails controller
+  expand: ['customer', 'customer.company', 'customer.company.contact']
+})
+```
+
+You can also pass a nested hash (which will be used internally anyway):
+
+```ruby
+decorator = API::V1::Invoice::Decorator::Resource.new(invoice)
+decorator.to_json(user_options: {
+  expand: { customer: { company: :contact } }
 })
 ```
 
