@@ -6,7 +6,7 @@ RSpec.describe Pragma::Decorator::Association do
     Class.new(Pragma::Decorator::Base) do
       include Pragma::Decorator::Association
     end.tap do |klass|
-      klass.send(:belongs_to, :customer, decorator: customer_decorator_klass)
+      klass.send(:belongs_to, :customer, decorator: customer_decorator_klass, expandable: true)
     end
   end
 
@@ -17,7 +17,7 @@ RSpec.describe Pragma::Decorator::Association do
       property :id
       property :full_name
     end.tap do |klass|
-      klass.send(:belongs_to, :company, decorator: company_decorator_klass)
+      klass.send(:belongs_to, :company, decorator: company_decorator_klass, expandable: true)
     end
   end
 
@@ -88,6 +88,21 @@ RSpec.describe Pragma::Decorator::Association do
 
     it 'renders nil associations' do
       expect(result).to have_key('customer')
+    end
+  end
+
+  context 'when the association is not expandable' do
+    before do
+      decorator_klass.send(:belongs_to, :customer,
+        decorator: customer_decorator_klass,
+        expandable: false
+      )
+    end
+
+    let(:expand) { ['customer'] }
+
+    it 'raises an UnexpandableError' do
+      expect { result }.to raise_error(Pragma::Decorator::Association::UnexpandableError)
     end
   end
 end

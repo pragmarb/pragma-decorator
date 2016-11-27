@@ -31,6 +31,13 @@ module Pragma
           @options = options
         end
 
+        # Returns whether the association is expandable.
+        #
+        # @return [Boolean]
+        def expandable?
+          options[:expandable]
+        end
+
         # Renders the unexpanded or expanded associations, depending on the +expand+ user option
         # passed to the decorator.
         #
