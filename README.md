@@ -132,6 +132,7 @@ expanded into a full object!
 ```json
 {
   "customer": {
+    "id": 19,
     "...": "..."
   }
 }
