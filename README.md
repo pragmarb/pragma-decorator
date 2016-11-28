@@ -132,7 +132,7 @@ module API
     module Invoice
       module Decorator
         class Resource < Pragma::Decorator::Base
-          include Pragma::Decorator::Association
+          feature Pragma::Decorator::Association
 
           belongs_to :customer
         end
@@ -164,7 +164,7 @@ module API
     module Invoice
       module Decorator
         class Resource < Pragma::Decorator::Base
-          include Pragma::Decorator::Association
+          feature Pragma::Decorator::Association
 
           belongs_to :customer, expandable: true
         end
@@ -222,7 +222,7 @@ module API
     module User
       module Decorator
         class Resource < Pragma::Decorator::Base
-          include Pragma::Decorator::Timestamp
+          feature Pragma::Decorator::Timestamp
 
           timestamp :created_at
         end

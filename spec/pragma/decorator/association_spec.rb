@@ -4,7 +4,7 @@ RSpec.describe Pragma::Decorator::Association do
 
   let(:decorator_klass) do
     Class.new(Pragma::Decorator::Base) do
-      include Pragma::Decorator::Association
+      feature Pragma::Decorator::Association
     end.tap do |klass|
       klass.send(:belongs_to, :customer, decorator: customer_decorator_klass, expandable: true)
     end
@@ -12,7 +12,7 @@ RSpec.describe Pragma::Decorator::Association do
 
   let(:customer_decorator_klass) do
     Class.new(Pragma::Decorator::Base) do
-      include Pragma::Decorator::Association
+      feature Pragma::Decorator::Association
 
       property :id
       property :full_name
