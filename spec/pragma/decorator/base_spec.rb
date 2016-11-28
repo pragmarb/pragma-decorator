@@ -19,8 +19,4 @@ RSpec.describe Pragma::Decorator::Base do
   it 'renders JSON' do
     expect(result).to include('title' => 'Wonderful World')
   end
-
-  it 'includes the object type' do
-    expect(result).to include('type' => 'open_struct')
-  end
 end

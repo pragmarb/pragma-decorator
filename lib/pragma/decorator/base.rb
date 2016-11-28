@@ -12,18 +12,6 @@ module Pragma
     class Base < Roar::Decorator
       feature Roar::JSON
 
-      property :type, exec_context: :decorator, render_nil: false
-
-      # Returns the type of the decorated object (i.e. its underscored class name).
-      #
-      # @return [String]
-      def type
-        decorated.class.name
-          .gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
-          .gsub(/([a-z\d])([A-Z])/, '\1_\2')
-          .downcase
-      end
-
       # Overrides Representable's default +#to_hash+ to save the last options the method was run
       # with.
       #

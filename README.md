@@ -62,7 +62,6 @@ This will produce the following JSON:
 
 ```json
 {
-  "type": "user",
   "id": 1,
   "email": "jdoe@example.com",
   "full_name": "John Doe"
@@ -76,18 +75,8 @@ the features provided specifically by Pragma::Decorator.
 
 ### Object types
 
-By default, decorators will expose the type of the decorated object. From our previous example:
-
-```json
-{
-  "type": "user",
-  "id": 1,
-  "email": "jdoe@example.com",
-  "full_name": "John Doe"
-}
-```
-
-If you want to disable this feature, you can disable the property:
+It is recommended that decorators expose the type of the decorated object. You can achieve this
+with the `Type` mixin:
 
 ```ruby
 module API
@@ -95,18 +84,21 @@ module API
     module User
       module Decorator
         class Resource < Pragma::Decorator::Base
-          property :type, if: false
-
-          # or
-
-          def type
-            nil
-          end
+          feature Pragma::Decorator::Type
         end
       end
     end
   end
 end
+```
+
+This would result in the following representation:
+
+```json
+{
+  "type": "user",
+  "...": "...""
+}
 ```
 
 You can also set a custom type name (just make sure to use it consistently!):
@@ -126,6 +118,8 @@ module API
   end
 end
 ```
+
+Note: `array` is already overridden with the more language-agnostic `list`.
 
 ### Associations
 
