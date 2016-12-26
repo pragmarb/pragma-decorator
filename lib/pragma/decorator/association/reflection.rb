@@ -56,12 +56,12 @@ module Pragma
         end
 
         def validate_options
-          unless [:decorator, :decorated].include?(options[:exec_context])
-            fail(
-              ArgumentError,
-              "'#{options[:exec_context]}' is not a valid value for :exec_context."
-            )
-          end
+          return if [:decorator, :decorated].include?(options[:exec_context])
+
+          fail(
+            ArgumentError,
+            "'#{options[:exec_context]}' is not a valid value for :exec_context."
+          )
         end
       end
     end
