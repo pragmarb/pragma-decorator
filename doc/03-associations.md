@@ -31,6 +31,8 @@ Rendering an invoice will now create the following representation:
 
 Not impressed? Just wait.
 
+## Expanding associations
+
 We also support association expansion through an interface similar to the one provided by the
 [Stripe API](https://stripe.com/docs/api/curl#expanding_objects). You can define which associations
 are expandable in the decorator:
@@ -63,6 +65,8 @@ expanded into a full object!
 }
 ```
 
+## Nested associations
+
 This also works for nested associations. For instance, if the customer has a `company` association
 marked as expandable, you can pass `expand[]=customer&expand[]=customer.company` to get that
 association expanded too.
@@ -76,6 +80,8 @@ decorator.to_json(user_options: {
   expand: ['customer', 'customer.company', 'customer.company.contact']
 })
 ```
+
+## Accepted options
 
 Here's a list of options accepted when defining an association:
 
