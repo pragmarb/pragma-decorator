@@ -38,9 +38,7 @@ RSpec.describe Pragma::Decorator::Association do
   context 'when the association is not expanded' do
     it "renders the associated object's ID" do
       expect(result).to include(
-        'customer' => a_hash_including(
-          'id' => customer.id
-        )
+        'customer' => customer.id
       )
     end
   end
@@ -53,9 +51,7 @@ RSpec.describe Pragma::Decorator::Association do
         'customer' => a_hash_including(
           'id' => customer.id,
           'full_name' => customer.full_name,
-          'company' => a_hash_including(
-            'id' => company.id
-          )
+          'company' => company.id
         )
       )
     end
@@ -129,9 +125,7 @@ RSpec.describe Pragma::Decorator::Association do
     end
 
     it 'calls the getter on the decorator' do
-      expect(result).to include('customer' => a_hash_including(
-        'id' => 'customer_on_decorator'
-      ))
+      expect(result).to include('customer' => 'customer_on_decorator')
     end
   end
 end

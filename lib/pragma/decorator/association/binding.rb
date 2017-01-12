@@ -34,19 +34,15 @@ module Pragma
           end
         end
 
-        # Returns the unexpanded hash for the associated object (i.e. a hash with only the +id+
-        # property).
+        # Returns the unexpanded value for the associated object (i.e. its +id+ property).
         #
-        # @return [Hash]
-        def unexpanded_hash
+        # @return [String]
+        def unexpanded_value
           return unless associated_object
-
-          {
-            id: associated_object.id
-          }
+          associated_object.id
         end
 
-        # Returns the expanded hash for the associated object.
+        # Returns the expanded value for the associated object.
         #
         # If a decorator was specified for the association, first decorates the associated object,
         # then calls +#to_hash+ to render it as a hash.
@@ -61,7 +57,7 @@ module Pragma
         # @return [Hash]
         #
         # @raise [UnexpandableError] if the association is not expandable
-        def expanded_hash(expand)
+        def expanded_value(expand)
           fail UnexpandableError, reflection unless reflection.expandable?
 
           return unless associated_object
@@ -91,9 +87,9 @@ module Pragma
           expand ||= []
 
           if expand.any? { |value| value.to_s == reflection.property.to_s }
-            expanded_hash(expand)
+            expanded_value(expand)
           else
-            unexpanded_hash
+            unexpanded_value
           end
         end
 
