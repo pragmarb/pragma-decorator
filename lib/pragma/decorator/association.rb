@@ -64,7 +64,7 @@ module Pragma
 
         def create_association_getter(property)
           class_eval <<~RUBY
-            private def _#{property}_association
+            def _#{property}_association
               @association_bindings[:#{property}].render(user_options[:expand])
             end
           RUBY
