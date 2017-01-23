@@ -132,7 +132,7 @@ RSpec.describe Pragma::Decorator::Association do
   context 'when decorator is a callable' do
     before do
       decorator_klass.send(:belongs_to, :customer,
-        decorator: -> (associated_object) { customer_decorator_klass },
+        decorator: ->(_associated_object) { customer_decorator_klass },
         expandable: true
       )
     end
