@@ -68,8 +68,10 @@ module Pragma
             }
           }
 
-          if reflection.options[:decorator]
-            reflection.options[:decorator].new(associated_object).to_hash(options)
+          decorator_klass = compute_decorator
+
+          if decorator_klass
+            decorator_klass.new(associated_object).to_hash(options)
           else
             associated_object.as_json(options)
           end
@@ -104,6 +106,14 @@ module Pragma
             else
               value
             end
+          end
+        end
+
+        def compute_decorator
+          if reflection.options[:decorator].respond_to?(:call)
+            reflection.options[:decorator].call(associated_object)
+          else
+            reflection.options[:decorator]
           end
         end
       end

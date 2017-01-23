@@ -23,7 +23,8 @@ module Pragma
         # @param options [Hash] additional options
         #
         # @option options [Boolean] :expandable (`false`) whether the association is expandable
-        # @option options [Class] :decorator the decorator to use for the associated object
+        # @option options [Class|Proc] :decorator the decorator to use for the associated object
+        #   or a callable that will return the decorator class (or +nil+ to skip decoration)
         # @option options [Boolean] :render_nil (`true`) whether to render a +nil+ association
         # @option options [Symbol] :exec_context (`decorated`) whether to call the getter on the
         #   decorator (+decorator+) or the decorated object (+decorated+)

@@ -128,4 +128,25 @@ RSpec.describe Pragma::Decorator::Association do
       expect(result).to include('customer' => 'customer_on_decorator')
     end
   end
+
+  context 'when decorator is a callable' do
+    before do
+      decorator_klass.send(:belongs_to, :customer,
+        decorator: -> (associated_object) { customer_decorator_klass },
+        expandable: true
+      )
+    end
+
+    let(:expand) { ['customer'] }
+
+    it 'computes the decorator from the callable' do
+      expect(result).to include(
+        'customer' => a_hash_including(
+          'id' => customer.id,
+          'full_name' => customer.full_name,
+          'company' => company.id
+        )
+      )
+    end
+  end
 end

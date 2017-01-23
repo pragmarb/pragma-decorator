@@ -86,6 +86,6 @@ Here's a list of options accepted when defining an association:
 Name | Type | Default | Meaning
 ---- | ---- | ------- | -------
 `expandable` | Boolean | `false` | Whether this association is expandable by consumers. Attempting to expand a non-expandable association will raise a `UnexpandableError`.
-`decorator` | Class | - | If provided, decorates the expanded object with this decorator. Otherwise, simply calls `#to_hash` on the object to get a representable hash.
+`decorator` | Class|Proc | - | If provided, decorates the expanded object with this decorator. Otherwise, simply calls `#to_hash` on the object to get a representable hash. If the option is callable, will call it and pass the associated object - a decorator class should be returned, or `nil` to skip decoration.
 `render_nil` | Boolean | `false` | Whether the property should be rendered at all when it is `nil`.
 `exec_context` | Symbol | `:decorated` | Whether to call the getter on the decorator (`:decorator`) or the decorated object (`:decorated`).
