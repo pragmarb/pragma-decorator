@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Pragma
   module Decorator
     module Association
@@ -48,15 +49,19 @@ module Pragma
         end
 
         def validate_options
-          fail(
-            ArgumentError,
-            "'#{options[:exec_context]}' is not a valid value for :exec_context."
-          ) unless [:decorator, :decorated].include?(options[:exec_context])
+          unless %i[decorator decorated].include?(options[:exec_context])
+            fail(
+              ArgumentError,
+              "'#{options[:exec_context]}' is not a valid value for :exec_context."
+            )
+          end
 
-          fail(
-            ArgumentError,
-            'The :decorator option is required.'
-          ) unless options[:decorator]
+          unless options[:decorator]
+            fail(
+              ArgumentError,
+              'The :decorator option is required.'
+            )
+          end
         end
       end
     end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.describe Pragma::Decorator::Association do
   subject { decorator_klass.new(invoice) }
 

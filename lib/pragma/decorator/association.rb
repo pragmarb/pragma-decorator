@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Pragma
   module Decorator
     # Adds association expansion to decorators.
