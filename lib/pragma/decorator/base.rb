@@ -12,6 +12,8 @@ module Pragma
     class Base < Roar::Decorator
       feature Roar::JSON
 
+      defaults render_nil: true
+
       # Overrides Representable's default +#to_hash+ to save the last options the method was run
       # with.
       #

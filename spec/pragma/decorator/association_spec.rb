@@ -75,6 +75,13 @@ RSpec.describe Pragma::Decorator::Association do
   end
 
   context 'when render_nil is false' do
+    before do
+      decorator_klass.send(:belongs_to, :customer,
+        decorator: customer_decorator_klass,
+        render_nil: false
+      )
+    end
+
     let(:customer) { nil }
 
     it 'does not render nil associations' do

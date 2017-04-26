@@ -40,7 +40,7 @@ module Pragma
 
         def normalize_options
           @options = {
-            render_nil: false,
+            render_nil: true,
             exec_context: :decorated
           }.merge(options).tap do |opts|
             opts[:exec_context] = opts[:exec_context].to_sym
@@ -48,12 +48,15 @@ module Pragma
         end
 
         def validate_options
-          return if [:decorator, :decorated].include?(options[:exec_context])
-
           fail(
             ArgumentError,
             "'#{options[:exec_context]}' is not a valid value for :exec_context."
-          )
+          ) unless [:decorator, :decorated].include?(options[:exec_context])
+
+          fail(
+            ArgumentError,
+            'The :decorator option is required.'
+          ) unless options[:decorator]
         end
       end
     end
