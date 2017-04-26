@@ -22,7 +22,6 @@ module Pragma
         # @param property [Symbol] the property holding the associated object
         # @param options [Hash] additional options
         #
-        # @option options [Boolean] :expandable (`false`) whether the association is expandable
         # @option options [Class|Proc] :decorator the decorator to use for the associated object
         #   or a callable that will return the decorator class (or +nil+ to skip decoration)
         # @option options [Boolean] :render_nil (`true`) whether to render a +nil+ association
@@ -37,18 +36,10 @@ module Pragma
           validate_options
         end
 
-        # Returns whether the association is expandable.
-        #
-        # @return [Boolean]
-        def expandable?
-          options[:expandable]
-        end
-
         private
 
         def normalize_options
           @options = {
-            expandable: false,
             render_nil: false,
             exec_context: :decorated
           }.merge(options).tap do |opts|
