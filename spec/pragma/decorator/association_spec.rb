@@ -75,6 +75,22 @@ RSpec.describe Pragma::Decorator::Association do
     end
   end
 
+  context 'when nested associations are expanded without the parents being expanded' do
+    let(:expand) { ['customer.company'] }
+
+    it 'raises an UnexpandedAssociationParent error' do
+      expect { result }.to raise_error(Pragma::Decorator::Association::UnexpandedAssociationParent)
+    end
+  end
+
+  context 'when a non-existing associations is expanded' do
+    let(:expand) { ['dummy'] }
+
+    it 'raises an AssociationNotFound error' do
+      expect { result }.to raise_error(Pragma::Decorator::Association::AssociationNotFound)
+    end
+  end
+
   context 'when render_nil is false' do
     before do
       decorator_klass.send(:belongs_to, :customer,

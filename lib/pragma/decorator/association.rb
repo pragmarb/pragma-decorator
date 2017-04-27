@@ -8,18 +8,7 @@ module Pragma
     module Association
       def self.included(klass)
         klass.extend ClassMethods
-      end
-
-      # Inizializes the decorator and bindings for all the associations.
-      #
-      # @see Association::Binding
-      def initialize(*)
-        super
-
-        @association_bindings = {}
-        self.class.associations.each_pair do |property, reflection|
-          @association_bindings[property] = Binding.new(reflection: reflection, decorator: self)
-        end
+        Wisper.subscribe(Subscriber, scope: klass)
       end
 
       module ClassMethods # rubocop:disable Style/Documentation
@@ -62,7 +51,10 @@ module Pragma
         def create_association_getter(property)
           class_eval <<~RUBY
             def _#{property}_association
-              @association_bindings[:#{property}].render(user_options[:expand])
+              Binding.new(
+                reflection: self.class.associations[:#{property}],
+                decorator: self
+              ).render(user_options[:expand])
             end
           RUBY
         end
