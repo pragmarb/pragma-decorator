@@ -25,6 +25,9 @@ module Pragma
       # @return [Hash]
       def to_hash(options = {}, *args)
         @last_options = options
+        if self.class.respond_to?(:assocations)
+
+        end
         super(options, *args)
       end
 

@@ -8,14 +8,6 @@ module Pragma
     module Association
       def self.included(klass)
         klass.extend ClassMethods
-
-        klass.class_eval do
-          @associations = {}
-
-          def self.associations
-            @associations
-          end
-        end
       end
 
       # Inizializes the decorator and bindings for all the associations.
@@ -31,6 +23,10 @@ module Pragma
       end
 
       module ClassMethods # rubocop:disable Style/Documentation
+        def associations
+          @associations ||= {}
+        end
+
         # Defines a +belongs_to+ association.
         #
         # See {Association::Reflection#initialize} for the list of available options.
@@ -60,7 +56,7 @@ module Pragma
         end
 
         def create_association_definition(type, property, options)
-          @associations[property.to_sym] = Reflection.new(type, property, options)
+          associations[property.to_sym] = Reflection.new(type, property, options)
         end
 
         def create_association_getter(property)
@@ -76,8 +72,8 @@ module Pragma
             exec_context: :decorator,
             as: property_name
           }.tap do |opts|
-            if @associations[property_name].options.key?(:render_nil)
-              opts[:render_nil] = @associations[property_name].options[:render_nil]
+            if associations[property_name].options.key?(:render_nil)
+              opts[:render_nil] = associations[property_name].options[:render_nil]
             end
           end
 
