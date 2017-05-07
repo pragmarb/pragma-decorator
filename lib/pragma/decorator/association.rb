@@ -22,8 +22,8 @@ module Pragma
         #
         # @param property [Symbol] the property containing the associated object
         # @param options [Hash] the options of the association
-        def belongs_to(property, options = {})
-          define_association :belongs_to, property, options
+        def belongs_to(property_name, options = {})
+          define_association :belongs_to, property_name, options
         end
 
         # Defines a +has_one+ association.
@@ -32,44 +32,34 @@ module Pragma
         #
         # @param property [Symbol] the property containing the associated object
         # @param options [Hash] the options of the association
-        def has_one(property, options = {}) # rubocop:disable Style/PredicateName
-          define_association :has_one, property, options
+        def has_one(property_name, options = {}) # rubocop:disable Style/PredicateName
+          define_association :has_one, property_name, options
         end
 
         private
 
-        def define_association(type, property, options = {})
-          create_association_definition(type, property, options)
-          create_association_getter(property)
-          create_association_property(property)
+        def define_association(type, property_name, options = {})
+          create_association_definition(type, property_name, options)
+          create_association_property(type, property_name, options)
         end
 
-        def create_association_definition(type, property, options)
-          associations[property.to_sym] = Reflection.new(type, property, options)
+        def create_association_definition(type, property_name, options)
+          associations[property_name.to_sym] = Reflection.new(type, property_name, options)
         end
 
-        def create_association_getter(property)
-          class_eval <<~RUBY
-            def _#{property}_association
-              Binding.new(
-                reflection: self.class.associations[:#{property}],
-                decorator: self
-              ).render(user_options[:expand])
-            end
-          RUBY
-        end
-
-        def create_association_property(property_name)
-          options = {
+        def create_association_property(_type, property_name, options)
+          property_options = options.dup.tap { |po| po.delete(:decorator) }.merge(
             exec_context: :decorator,
-            as: property_name
-          }.tap do |opts|
-            if associations[property_name].options.key?(:render_nil)
-              opts[:render_nil] = associations[property_name].options[:render_nil]
-            end
-          end
+            as: property_name,
+            getter: (lambda do |decorator:, user_options:, **args|
+              Binding.new(
+                reflection: decorator.class.associations[property_name],
+                decorator: decorator
+              ).render(user_options[:expand])
+            end)
+          )
 
-          property("_#{property_name}_association", options)
+          property("_#{property_name}_association", property_options)
         end
       end
 
