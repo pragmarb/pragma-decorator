@@ -3,7 +3,10 @@
 module Pragma
   module Decorator
     module Association
-      class AssociationNotFound < StandardError
+      class ExpansionError < StandardError
+      end
+
+      class AssociationNotFound < ExpansionError
         attr_reader :property
 
         def initialize(property)
@@ -12,7 +15,7 @@ module Pragma
         end
       end
 
-      class UnexpandedAssociationParent < StandardError
+      class UnexpandedAssociationParent < ExpansionError
         attr_reader :child, :parent
 
         def initialize(child, parent)
