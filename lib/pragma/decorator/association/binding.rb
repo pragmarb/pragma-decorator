@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Pragma
   module Decorator
     module Association
@@ -55,11 +56,7 @@ module Pragma
         # @param expand [Array<String>] the associations to expand
         #
         # @return [Hash]
-        #
-        # @raise [UnexpandableError] if the association is not expandable
         def expanded_value(expand)
-          fail UnexpandableError, reflection unless reflection.expandable?
-
           return unless associated_object
 
           options = {

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Pragma
   module Decorator
     module Association
@@ -22,7 +23,6 @@ module Pragma
         # @param property [Symbol] the property holding the associated object
         # @param options [Hash] additional options
         #
-        # @option options [Boolean] :expandable (`false`) whether the association is expandable
         # @option options [Class|Proc] :decorator the decorator to use for the associated object
         #   or a callable that will return the decorator class (or +nil+ to skip decoration)
         # @option options [Boolean] :render_nil (`true`) whether to render a +nil+ association
@@ -37,19 +37,11 @@ module Pragma
           validate_options
         end
 
-        # Returns whether the association is expandable.
-        #
-        # @return [Boolean]
-        def expandable?
-          options[:expandable]
-        end
-
         private
 
         def normalize_options
           @options = {
-            expandable: false,
-            render_nil: false,
+            render_nil: true,
             exec_context: :decorated
           }.merge(options).tap do |opts|
             opts[:exec_context] = opts[:exec_context].to_sym
@@ -57,12 +49,19 @@ module Pragma
         end
 
         def validate_options
-          return if [:decorator, :decorated].include?(options[:exec_context])
+          unless %i[decorator decorated].include?(options[:exec_context])
+            fail(
+              ArgumentError,
+              "'#{options[:exec_context]}' is not a valid value for :exec_context."
+            )
+          end
 
-          fail(
-            ArgumentError,
-            "'#{options[:exec_context]}' is not a valid value for :exec_context."
-          )
+          unless options[:decorator]
+            fail(
+              ArgumentError,
+              'The :decorator option is required.'
+            )
+          end
         end
       end
     end

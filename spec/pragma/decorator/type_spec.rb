@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.describe Pragma::Decorator::Type do
   subject { decorator_klass.new(model) }
 

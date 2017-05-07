@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Pragma
   module Decorator
     # Adds a +type+ property containing the machine-readable type of the represented object.

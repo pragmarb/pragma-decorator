@@ -1,12 +1,15 @@
 # frozen_string_literal: true
+
 RSpec.describe Pragma::Decorator::Association do
-  subject { decorator_klass.new(invoice) }
+  subject { decorator }
+
+  let(:decorator) { decorator_klass.new(invoice) }
 
   let(:decorator_klass) do
     Class.new(Pragma::Decorator::Base) do
       feature Pragma::Decorator::Association
     end.tap do |klass|
-      klass.send(:belongs_to, :customer, decorator: customer_decorator_klass, expandable: true)
+      klass.send(:belongs_to, :customer, decorator: customer_decorator_klass)
     end
   end
 
@@ -17,7 +20,7 @@ RSpec.describe Pragma::Decorator::Association do
       property :id
       property :full_name
     end.tap do |klass|
-      klass.send(:belongs_to, :company, decorator: company_decorator_klass, expandable: true)
+      klass.send(:belongs_to, :company, decorator: company_decorator_klass)
     end
   end
 
@@ -75,6 +78,13 @@ RSpec.describe Pragma::Decorator::Association do
   end
 
   context 'when render_nil is false' do
+    before do
+      decorator_klass.send(:belongs_to, :customer,
+        decorator: customer_decorator_klass,
+        render_nil: false
+      )
+    end
+
     let(:customer) { nil }
 
     it 'does not render nil associations' do
@@ -92,21 +102,6 @@ RSpec.describe Pragma::Decorator::Association do
 
     it 'renders nil associations' do
       expect(result).to have_key('customer')
-    end
-  end
-
-  context 'when the association is not expandable' do
-    before do
-      decorator_klass.send(:belongs_to, :customer,
-        decorator: customer_decorator_klass,
-        expandable: false
-      )
-    end
-
-    let(:expand) { ['customer'] }
-
-    it 'raises an UnexpandableError' do
-      expect { result }.to raise_error(Pragma::Decorator::Association::UnexpandableError)
     end
   end
 
@@ -132,8 +127,7 @@ RSpec.describe Pragma::Decorator::Association do
   context 'when decorator is a callable' do
     before do
       decorator_klass.send(:belongs_to, :customer,
-        decorator: ->(_associated_object) { customer_decorator_klass },
-        expandable: true
+        decorator: ->(_associated_object) { customer_decorator_klass }
       )
     end
 
@@ -147,6 +141,26 @@ RSpec.describe Pragma::Decorator::Association do
           'company' => company.id
         )
       )
+    end
+  end
+
+  describe '#validate_expansion' do
+    subject { -> { decorator.validate_expansion(expand) } }
+
+    context 'when nested associations are expanded without the parents being expanded' do
+      let(:expand) { ['customer.company'] }
+
+      it 'raises an UnexpandedAssociationParent error' do
+        expect(subject).to raise_error(Pragma::Decorator::Association::UnexpandedAssociationParent)
+      end
+    end
+
+    context 'when a non-existing associations is expanded' do
+      let(:expand) { ['dummy'] }
+
+      it 'raises an AssociationNotFound error' do
+        expect(subject).to raise_error(Pragma::Decorator::Association::AssociationNotFound)
+      end
     end
   end
 end
