@@ -82,7 +82,7 @@ module Pragma
         private
 
         def check_parent_associations_are_expanded(expand)
-          expand = [expand].flatten.map(&:to_s)
+          expand = normalize_expand(expand)
 
           expand.each do |property|
             next unless property.include?('.')
@@ -95,12 +95,16 @@ module Pragma
         end
 
         def check_expanded_associations_exist(expand)
-          expand = [expand].flatten.map(&:to_s)
+          expand = normalize_expand(expand)
 
           expand.each do |property|
             next if self.class.associations.key?(property.to_sym) || property.include?('.')
             fail Association::AssociationNotFound, property
           end
+        end
+
+        def normalize_expand(expand)
+          [expand].flatten.map(&:to_s).reject(&:blank?)
         end
       end
     end
