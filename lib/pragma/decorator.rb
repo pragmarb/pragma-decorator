@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
 require 'roar'
-require 'wisper'
 
 require 'pragma/decorator/version'
 require 'pragma/decorator/base'
 require 'pragma/decorator/association'
 require 'pragma/decorator/association/reflection'
 require 'pragma/decorator/association/binding'
-require 'pragma/decorator/association/subscriber'
 require 'pragma/decorator/association/errors'
 require 'pragma/decorator/timestamp'
 require 'pragma/decorator/type'

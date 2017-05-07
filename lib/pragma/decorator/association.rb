@@ -8,7 +8,7 @@ module Pragma
     module Association
       def self.included(klass)
         klass.extend ClassMethods
-        Wisper.subscribe(Subscriber, scope: klass)
+        klass.include InstanceMethods
       end
 
       module ClassMethods # rubocop:disable Style/Documentation
@@ -70,6 +70,37 @@ module Pragma
           end
 
           property("_#{property_name}_association", options)
+        end
+      end
+
+      module InstanceMethods
+        def validate_expansion(expand)
+          check_parent_associations_are_expanded(expand)
+          check_expanded_associations_exist(expand)
+        end
+
+        private
+
+        def check_parent_associations_are_expanded(expand)
+          expand = [expand].flatten.map(&:to_s)
+
+          expand.each do |property|
+            next unless property.include?('.')
+
+            parent_path = property.split('.')[0..-2].join('.')
+            next if expand.include?(parent_path)
+
+            fail Association::UnexpandedAssociationParent.new(property, parent_path)
+          end
+        end
+
+        def check_expanded_associations_exist(expand)
+          expand = [expand].flatten.map(&:to_s)
+
+          expand.each do |property|
+            next if self.class.associations.key?(property.to_sym) || property.include?('.')
+            fail Association::AssociationNotFound, property
+          end
         end
       end
     end

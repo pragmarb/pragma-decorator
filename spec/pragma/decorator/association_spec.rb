@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe Pragma::Decorator::Association do
-  subject { decorator_klass.new(invoice) }
+  subject { decorator }
+
+  let(:decorator) { decorator_klass.new(invoice) }
 
   let(:decorator_klass) do
     Class.new(Pragma::Decorator::Base) do
@@ -75,22 +77,6 @@ RSpec.describe Pragma::Decorator::Association do
     end
   end
 
-  context 'when nested associations are expanded without the parents being expanded' do
-    let(:expand) { ['customer.company'] }
-
-    it 'raises an UnexpandedAssociationParent error' do
-      expect { result }.to raise_error(Pragma::Decorator::Association::UnexpandedAssociationParent)
-    end
-  end
-
-  context 'when a non-existing associations is expanded' do
-    let(:expand) { ['dummy'] }
-
-    it 'raises an AssociationNotFound error' do
-      expect { result }.to raise_error(Pragma::Decorator::Association::AssociationNotFound)
-    end
-  end
-
   context 'when render_nil is false' do
     before do
       decorator_klass.send(:belongs_to, :customer,
@@ -155,6 +141,26 @@ RSpec.describe Pragma::Decorator::Association do
           'company' => company.id
         )
       )
+    end
+  end
+
+  describe '#validate_expansion' do
+    subject { -> { decorator.validate_expansion(expand) } }
+
+    context 'when nested associations are expanded without the parents being expanded' do
+      let(:expand) { ['customer.company'] }
+
+      it 'raises an UnexpandedAssociationParent error' do
+        expect(subject).to raise_error(Pragma::Decorator::Association::UnexpandedAssociationParent)
+      end
+    end
+
+    context 'when a non-existing associations is expanded' do
+      let(:expand) { ['dummy'] }
+
+      it 'raises an AssociationNotFound error' do
+        expect(subject).to raise_error(Pragma::Decorator::Association::AssociationNotFound)
+      end
     end
   end
 end

@@ -11,17 +11,9 @@ module Pragma
     #
     # @author Alessandro Desantis
     class Base < Roar::Decorator
-      include Wisper::Publisher
-
       feature Roar::JSON
 
       defaults render_nil: true
-
-      def initialize(*)
-        super
-
-        broadcast(:after_initialize, self)
-      end
 
       # Overrides Representable's default +#to_hash+ to save the last options the method was run
       # with.
@@ -33,9 +25,6 @@ module Pragma
       # @return [Hash]
       def to_hash(options = {}, *args)
         @last_options = options
-
-        broadcast(:before_render, self, options: options, user_options: user_options)
-
         super(options, *args)
       end
 
