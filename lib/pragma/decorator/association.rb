@@ -2,9 +2,6 @@
 
 module Pragma
   module Decorator
-    # Adds association expansion to decorators.
-    #
-    # @author Alessandro Desantis
     module Association
       def self.included(klass)
         klass.extend ClassMethods
@@ -16,22 +13,10 @@ module Pragma
           @associations ||= {}
         end
 
-        # Defines a +belongs_to+ association.
-        #
-        # See {Association::Reflection#initialize} for the list of available options.
-        #
-        # @param property [Symbol] the property containing the associated object
-        # @param options [Hash] the options of the association
         def belongs_to(property_name, options = {})
           define_association :belongs_to, property_name, options
         end
 
-        # Defines a +has_one+ association.
-        #
-        # See {Association::Reflection#initialize} for the list of available options.
-        #
-        # @param property [Symbol] the property containing the associated object
-        # @param options [Hash] the options of the association
         def has_one(property_name, options = {}) # rubocop:disable Style/PredicateName
           define_association :has_one, property_name, options
         end
