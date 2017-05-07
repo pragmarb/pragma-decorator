@@ -36,7 +36,7 @@ module Pragma
           property_options = options.dup.tap { |po| po.delete(:decorator) }.merge(
             exec_context: :decorator,
             as: property_name,
-            getter: (lambda do |decorator:, user_options:, **args|
+            getter: (lambda do |decorator:, user_options:, **_args|
               Binding.new(
                 reflection: decorator.class.associations[property_name],
                 decorator: decorator
