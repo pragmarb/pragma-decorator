@@ -196,9 +196,8 @@ into a full object!
 }
 ```
 
-This also works for nested associations. For instance, if the customer has a `company` association
-marked as expandable, you can pass `expand[]=customer&expand[]=customer.company` to get that
-association expanded too.
+This also works for nested associations. For instance, if the customer had a `company` association,
+you could pass `expand[]=customer&expand[]=customer.company` to get the company expanded too.
 
 Note that you will have to pass the associations to expand as a user option when rendering:
 
