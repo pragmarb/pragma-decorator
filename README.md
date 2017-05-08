@@ -210,6 +210,9 @@ decorator.to_json(user_options: {
 })
 ```
 
+Needless to say, this is done automatically for you when you use all components together through
+the [pragma](https://github.com/pragmarb/pragma) gem. Enjoy! :)
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/pragmarb/pragma-decorator.
