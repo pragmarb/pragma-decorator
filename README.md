@@ -200,8 +200,7 @@ This also works for nested associations. For instance, if the customer has a `co
 marked as expandable, you can pass `expand[]=customer&expand[]=customer.company` to get that
 association expanded too.
 
-In order for association expansion to work, you will have to pass the associations to expand as a 
-user option when rendering the JSON:
+Note that you will have to pass the associations to expand as a user option when rendering:
 
 ```ruby
 decorator = API::V1::Invoice::Decorator::Resource.new(invoice)
@@ -211,7 +210,7 @@ decorator.to_json(user_options: {
 ```
 
 Needless to say, this is done automatically for you when you use all components together through
-the [pragma](https://github.com/pragmarb/pragma) gem. Enjoy! :)
+the [pragma](https://github.com/pragmarb/pragma) gem! :)
 
 ## Contributing
 
