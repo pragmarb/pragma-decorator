@@ -7,7 +7,7 @@ RSpec.describe Pragma::Decorator::Pagination do
 
   let(:collection_decorator_klass) do
     Class.new(Pragma::Decorator::Base) do
-      describe Pragma::Decorator::Pagination
+      feature Pragma::Decorator::Pagination
     end
   end
 

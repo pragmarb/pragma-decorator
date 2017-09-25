@@ -5,7 +5,7 @@ RSpec.describe Pragma::Decorator::Type do
 
   let(:decorator_klass) do
     Class.new(Pragma::Decorator::Base) do
-      describe Pragma::Decorator::Type
+      feature Pragma::Decorator::Type
     end
   end
 
