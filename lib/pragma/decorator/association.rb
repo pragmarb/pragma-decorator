@@ -17,7 +17,7 @@ module Pragma
           define_association :belongs_to, property_name, options
         end
 
-        def has_one(property_name, options = {}) # rubocop:disable Style/PredicateName
+        def has_one(property_name, options = {}) # rubocop:disable Naming/PredicateName
           define_association :has_one, property_name, options
         end
 

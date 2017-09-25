@@ -5,7 +5,7 @@ RSpec.describe Pragma::Decorator::Timestamp do
 
   let(:decorator_klass) do
     Class.new(Pragma::Decorator::Base) do
-      feature Pragma::Decorator::Timestamp
+      describe Pragma::Decorator::Timestamp
       timestamp :created_at
     end
   end

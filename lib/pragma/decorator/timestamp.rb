@@ -24,7 +24,7 @@ module Pragma
 
         def create_timestamp_getter(name, options = {})
           define_method "_#{name}_timestamp" do
-            if options[:exec_context] && options[:exec_context].to_sym == :decorator
+            if options[:exec_context]&.to_sym == :decorator
               send(name)
             else
               decorated.send(name)

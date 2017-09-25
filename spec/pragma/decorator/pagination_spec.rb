@@ -7,7 +7,7 @@ RSpec.describe Pragma::Decorator::Pagination do
 
   let(:collection_decorator_klass) do
     Class.new(Pragma::Decorator::Base) do
-      feature Pragma::Decorator::Pagination
+      describe Pragma::Decorator::Pagination
     end
   end
 
@@ -56,7 +56,7 @@ RSpec.describe Pragma::Decorator::Pagination do
         'per_page' => 30,
         'previous_page' => 1,
         'total_entries' => 90,
-        'total_pages' => 3,
+        'total_pages' => 3
       )
     end
   end
