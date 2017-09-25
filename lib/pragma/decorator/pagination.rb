@@ -5,7 +5,7 @@ module Pragma
     module Pagination
       module InstanceMethods
         def current_page
-          represented.current_page
+          represented.current_page.to_i
         end
 
         def next_page
