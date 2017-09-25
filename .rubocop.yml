@@ -89,3 +89,6 @@ Metrics/BlockLength:
 
 Style/GuardClause:
   Enabled: false
+
+Capybara/FeatureMethods:
+  Enabled: false
