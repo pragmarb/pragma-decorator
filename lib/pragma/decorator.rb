@@ -10,6 +10,8 @@ require 'pragma/decorator/association/binding'
 require 'pragma/decorator/association/errors'
 require 'pragma/decorator/timestamp'
 require 'pragma/decorator/type'
+require 'pragma/decorator/collection'
+require 'pragma/decorator/pagination'
 
 module Pragma
   # Represent your API resources in JSON with minimum hassle.
