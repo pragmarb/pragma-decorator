@@ -39,7 +39,7 @@ module API
   module V1
     module User
       module Decorator
-        class Resource < Pragma::Decorator::Base
+        class Instance < Pragma::Decorator::Base
           property :id
           property :email
           property :full_name
@@ -54,7 +54,7 @@ Just instantiate the decorator by passing it an object to decorate, then call `#
 `#to_json`:
 
 ```ruby
-decorator = API::V1::User::Decorator::Resource.new(user)
+decorator = API::V1::User::Decorator::Instance.new(user)
 decorator.to_json
 ```
 
@@ -83,7 +83,7 @@ module API
   module V1
     module User
       module Decorator
-        class Resource < Pragma::Decorator::Base
+        class Instance < Pragma::Decorator::Base
           feature Pragma::Decorator::Type
         end
       end
@@ -108,7 +108,7 @@ module API
   module V1
     module User
       module Decorator
-        class Resource < Pragma::Decorator::Base
+        class Instance < Pragma::Decorator::Base
           def type
             :custom_type
           end
@@ -133,7 +133,7 @@ module API
   module V1
     module User
       module Decorator
-        class Resource < Pragma::Decorator::Base
+        class Instance < Pragma::Decorator::Base
           feature Pragma::Decorator::Timestamp
 
           timestamp :created_at
@@ -165,7 +165,7 @@ module API
   module V1
     module Invoice
       module Decorator
-        class Resource < Pragma::Decorator::Base
+        class Instance < Pragma::Decorator::Base
           feature Pragma::Decorator::Association
 
           belongs_to :customer, decorator: API::V1::Customer::Decorator
@@ -203,7 +203,7 @@ expanded too.
 Note that you will have to pass the associations to expand as a user option when rendering:
 
 ```ruby
-decorator = API::V1::Invoice::Decorator::Resource.new(invoice)
+decorator = API::V1::Invoice::Decorator::Instance.new(invoice)
 decorator.to_json(user_options: {
   expand: ['customer', 'customer.company', 'customer.company.contact']
 })
@@ -211,6 +211,107 @@ decorator.to_json(user_options: {
 
 Needless to say, this is done automatically for you when you use all components together through
 the [pragma](https://github.com/pragmarb/pragma) gem! :)
+
+### Collection
+
+`Pragma::Decorator::Collection` wraps collections in a `data` property so that you can include
+metadata about them:
+
+```ruby
+module API
+  module V1
+    module Invoice
+      module Decorator
+        class Collection < Pragma::Decorator::Base
+          feature Pragma::Decorator::Collection
+          decorate_with Instance # specify the instance decorator
+          
+          property :total_cents, exec_context: :decorator
+          
+          def total_cents
+            represented.sum(:total_cents)
+          end
+        end
+      end
+    end
+  end
+end
+```
+
+You can now do this:
+
+```ruby
+API::V1::Invoice::Decorator::Collection.new(Invoice.all).to_json
+```
+
+Which will produce the following JSON:
+
+```json
+{
+  "data": [{
+    "id": 1,
+    "total_cents": 1500,
+  }, {
+    "id": 2,
+    "total_cents": 3000,
+  }],
+  "total_cents": 4500
+}
+```
+
+This is very useful, for instance, when you have a paginated collection, but want to include data
+about the entire collection (not just the current page) in the response.
+
+### Pagination
+
+Speaking of pagination, you can use `Pragma::Decorator::Pagination` in combination with 
+`Pragma::Decorator::Collection` to include pagination data in your response:
+
+```ruby
+module API
+  module V1
+    module Invoice
+      module Decorator
+        class Collection < Pragma::Decorator::Base
+          feature Pragma::Decorator::Collection
+          feature Pragma::Decorator::Pagination
+          
+          decorate_with Instance
+        end
+      end
+    end
+  end
+end
+```
+
+Now, you can run this code:
+
+```ruby
+API::V1::Invoice::Decorator::Collection.new(Invoice.all).to_json
+```
+
+Which will produce the following JSON:
+
+```json
+{
+  "data": [{
+    "id": 1,
+    "...": "...",
+  }, {
+    "id": 2,
+    "...": "...",
+  }],
+  "total_entries": 2,
+  "per_page": 30,
+  "total_pages": 1,
+  "previous_page": null,
+  "current_page": 1,
+  "next_page": null
+}
+```
+
+It works with both [will_paginate](https://github.com/mislav/will_paginate) and 
+[Kaminari](https://github.com/kaminari/kaminari)!
 
 ## Contributing
 
