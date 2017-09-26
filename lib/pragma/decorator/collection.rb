@@ -4,10 +4,17 @@ module Pragma
   module Decorator
     module Collection
       def self.included(klass)
+        klass.include InstanceMethods
         klass.extend ClassMethods
 
         klass.class_eval do
           collection :represented, as: :data, exec_context: :decorator
+        end
+      end
+
+      module InstanceMethods
+        def type
+          'collection'
         end
       end
 
