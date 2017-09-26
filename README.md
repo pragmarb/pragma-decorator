@@ -262,7 +262,7 @@ Which will produce the following JSON:
 This is very useful, for instance, when you have a paginated collection, but want to include data
 about the entire collection (not just the current page) in the response.
 
-### Pagination
+### Pagination
 
 Speaking of pagination, you can use `Pragma::Decorator::Pagination` in combination with 
 `Pragma::Decorator::Collection` to include pagination data in your response:
