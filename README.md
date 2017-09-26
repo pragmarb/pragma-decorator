@@ -265,7 +265,7 @@ about the entire collection (not just the current page) in the response.
 ### Pagination
 
 Speaking of pagination, you can use `Pragma::Decorator::Pagination` in combination with 
-`Pragma::Decorator::Collection` to include pagination data in your response:
+`Collection` to include pagination data in your response:
 
 ```ruby
 module API
