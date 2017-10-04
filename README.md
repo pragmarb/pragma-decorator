@@ -153,7 +153,7 @@ This will render a user like this:
 }
 ```
 
-The `#timestamp` method supports all the options supported by `#property` (except for `:as`).
+The `#timestamp` method supports all the options supported by `#property`.
 
 ### Associations
 

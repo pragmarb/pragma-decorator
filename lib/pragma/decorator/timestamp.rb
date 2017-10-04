@@ -34,7 +34,7 @@ module Pragma
 
         def create_timestamp_property(name, options = {})
           property "_#{name}_timestamp", options.merge(
-            as: name,
+            as: options[:as] || name,
             exec_context: :decorator
           )
         end
