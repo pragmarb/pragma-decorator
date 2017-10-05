@@ -212,6 +212,8 @@ decorator.to_json(user_options: {
 Needless to say, this is done automatically for you when you use all components together through
 the [pragma](https://github.com/pragmarb/pragma) gem! :)
 
+Associations support all the options supported by `#property`.
+
 ### Collection
 
 `Pragma::Decorator::Collection` wraps collections in a `data` property so that you can include
