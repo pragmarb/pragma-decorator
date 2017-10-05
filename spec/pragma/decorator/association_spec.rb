@@ -144,6 +144,21 @@ RSpec.describe Pragma::Decorator::Association do
     end
   end
 
+  context 'when :as option is provided' do
+    before do
+      decorator_klass.send(:belongs_to, :user,
+        decorator: customer_decorator_klass,
+        as: :customer
+      )
+    end
+
+    let(:invoice) { OpenStruct.new(user: customer) }
+
+    it "renders the associated object's ID" do
+      expect(result).to include('customer' => customer.id)
+    end
+  end
+
   describe '#validate_expansion' do
     subject { -> { decorator.validate_expansion(expand) } }
 
