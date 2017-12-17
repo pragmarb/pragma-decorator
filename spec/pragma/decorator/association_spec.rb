@@ -27,7 +27,7 @@ RSpec.describe Pragma::Decorator::Association do
   let(:company_decorator_klass) do
     Class.new(Pragma::Decorator::Base) do
       property :id
-      property :name
+      property :name, if: -> (user_options:, **) { user_options[:current_user].id == 1 }
     end
   end
 
@@ -35,8 +35,15 @@ RSpec.describe Pragma::Decorator::Association do
   let(:customer) { OpenStruct.new(id: 'customer_id', full_name: 'John Doe', company: company) }
   let(:company) { OpenStruct.new(id: 'company_id', name: 'ACME') }
 
-  let(:result) { JSON.parse(subject.to_json(user_options: { expand: expand })) }
+  let(:result) do
+    JSON.parse(subject.to_json(user_options: {
+      expand: expand,
+      current_user: current_user
+    }))
+  end
+
   let(:expand) { [] }
+  let(:current_user) { OpenStruct.new(id: 1) }
 
   context 'when the association is not expanded' do
     it "renders the associated object's ID" do

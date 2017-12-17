@@ -53,16 +53,16 @@ module Pragma
         # In any case, passes all nested associations as the +expand+ user option of the method
         # called.
         #
-        # @param expand [Array<String>] the associations to expand
+        # @param user_options [Array]
         #
         # @return [Hash]
-        def expanded_value(expand)
+        def expanded_value(user_options)
           return unless associated_object
 
           options = {
-            user_options: {
-              expand: flatten_expand(expand)
-            }
+            user_options: user_options.merge(
+              expand: flatten_expand(user_options[:expand])
+            )
           }
 
           decorator_klass = compute_decorator
@@ -77,16 +77,14 @@ module Pragma
         # Renders the unexpanded or expanded associations, depending on the +expand+ user option
         # passed to the decorator.
         #
-        # @param expand [Array<String>] the associations to expand
+        # @param user_options [Array]
         #
         # @return [Hash|Pragma::Decorator::Base]
-        def render(expand)
+        def render(user_options)
           return unless associated_object
 
-          expand ||= []
-
-          if expand.any? { |value| value.to_s == reflection.property.to_s }
-            expanded_value(expand)
+          if user_options[:expand]&.any? { |value| value.to_s == reflection.property.to_s }
+            expanded_value(user_options)
           else
             unexpanded_value
           end
@@ -95,6 +93,8 @@ module Pragma
         private
 
         def flatten_expand(expand)
+          expand ||= []
+
           expected_beginning = "#{reflection.property}."
 
           expand.reject { |value| value.to_s == reflection.property.to_s }.map do |value|

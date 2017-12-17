@@ -40,7 +40,7 @@ module Pragma
               Binding.new(
                 reflection: decorator.class.associations[property_name],
                 decorator: decorator
-              ).render(user_options[:expand])
+              ).render(user_options)
             end)
           )
 
