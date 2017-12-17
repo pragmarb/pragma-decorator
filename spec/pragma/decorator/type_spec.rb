@@ -16,4 +16,12 @@ RSpec.describe Pragma::Decorator::Type do
   it 'includes the object type' do
     expect(result).to include('type' => 'open_struct')
   end
+
+  context 'when the model is overridden' do
+    let(:model) { [:foo, :bar] }
+
+    it 'uses the overridden type' do
+      expect(result).to include('type' => 'list')
+    end
+  end
 end

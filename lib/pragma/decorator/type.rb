@@ -7,7 +7,8 @@ module Pragma
     # @author Alessandro Desantis
     module Type
       TYPE_OVERRIDES = {
-        array: 'list'
+        'array' => 'list',
+        'active_record::relation' => 'list',
       }.freeze
 
       def self.included(klass)
@@ -25,7 +26,7 @@ module Pragma
           .gsub(/([a-z\d])([A-Z])/, '\1_\2')
           .downcase
 
-        TYPE_OVERRIDES[type.to_sym] || type
+        TYPE_OVERRIDES[type] || type
       end
     end
   end
