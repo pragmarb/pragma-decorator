@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Pragma
   module Decorator
     # Adds association expansion to decorators.
@@ -63,11 +64,13 @@ module Pragma
         end
 
         def create_association_getter(property)
-          class_eval <<~RUBY
+          code = <<~RUBY
             def _#{property}_association
               @association_bindings[:#{property}].render(user_options[:expand])
             end
           RUBY
+
+          class_eval code, __FILE__, __LINE__
         end
 
         def create_association_property(property_name)

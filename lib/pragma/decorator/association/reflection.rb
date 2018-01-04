@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Pragma
   module Decorator
     module Association
@@ -57,7 +58,7 @@ module Pragma
         end
 
         def validate_options
-          return if [:decorator, :decorated].include?(options[:exec_context])
+          return if %i[decorator decorated].include?(options[:exec_context])
 
           fail(
             ArgumentError,

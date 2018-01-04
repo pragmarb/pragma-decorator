@@ -85,3 +85,7 @@ Metrics/CyclomaticComplexity:
 
 Metrics/BlockLength:
   Enabled: false
+
+Naming/FileName:
+  Exclude:
+    - 'pragma-decorator.gemspec'

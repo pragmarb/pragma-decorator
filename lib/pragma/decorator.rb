@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'roar'
 
 require 'pragma/decorator/version'
