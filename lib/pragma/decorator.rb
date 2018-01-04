@@ -8,6 +8,7 @@ require 'pragma/decorator/association'
 require 'pragma/decorator/association/reflection'
 require 'pragma/decorator/association/binding'
 require 'pragma/decorator/association/unexpandable_error'
+require 'pragma/decorator/association/inconsistent_type_error'
 require 'pragma/decorator/timestamp'
 require 'pragma/decorator/type'
 
