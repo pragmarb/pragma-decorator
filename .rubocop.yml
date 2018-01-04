@@ -92,3 +92,13 @@ Style/GuardClause:
 
 Capybara/FeatureMethods:
   Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Naming/FileName:
+  Exclude:
+    - 'pragma-decorator.gemspec'
