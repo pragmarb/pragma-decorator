@@ -31,9 +31,25 @@ RSpec.describe Pragma::Decorator::Association do
     end
   end
 
-  let(:invoice) { OpenStruct.new(customer: customer) }
-  let(:customer) { OpenStruct.new(id: 'customer_id', full_name: 'John Doe', company: company) }
-  let(:company) { OpenStruct.new(id: 'company_id', name: 'ACME') }
+  before do
+    class OpenStructWithPk < OpenStruct
+      def self.primary_key
+        :id
+      end
+    end
+  end
+
+  let(:invoice) do
+    OpenStructWithPk.new(id: 'invoice_id', customer: customer)
+  end
+
+  let(:customer) do
+    OpenStructWithPk.new(id: 'customer_id', full_name: 'John Doe', company: company)
+  end
+
+  let(:company) do
+    OpenStructWithPk.new(id: 'company_id', name: 'ACME')
+  end
 
   let(:result) do
     JSON.parse(subject.to_json(user_options: {
@@ -43,7 +59,7 @@ RSpec.describe Pragma::Decorator::Association do
   end
 
   let(:expand) { [] }
-  let(:current_user) { OpenStruct.new(id: 1) }
+  let(:current_user) { OpenStructWithPk.new(id: 1) }
 
   context 'when the association is not expanded' do
     it "renders the associated object's ID" do
@@ -116,7 +132,7 @@ RSpec.describe Pragma::Decorator::Association do
     before do
       decorator_klass.class_eval do
         def customer
-          OpenStruct.new(id: 'customer_on_decorator')
+          OpenStructWithPk.new(id: 'customer_on_decorator')
         end
       end
 
@@ -159,7 +175,7 @@ RSpec.describe Pragma::Decorator::Association do
       )
     end
 
-    let(:invoice) { OpenStruct.new(user: customer) }
+    let(:invoice) { OpenStructWithPk.new(user: customer) }
 
     it "renders the associated object's ID" do
       expect(result).to include('customer' => customer.id)
