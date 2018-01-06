@@ -17,30 +17,54 @@ module Pragma
     #   # }
     #   ArticleDecorator.new(article).to_hash
     module Type
-      # Type overrides, to avoid exposing internal details of the app.
-      TYPE_OVERRIDES = {
-        'array' => 'list',
-        'active_record::relation' => 'list'
-      }.freeze
+      class << self
+        def included(klass)
+          klass.class_eval do
+            property :type, exec_context: :decorator, render_nil: false
+          end
+        end
 
-      def self.included(klass)
-        klass.class_eval do
-          property :type, exec_context: :decorator, render_nil: false
+        # Returns the type overrides.
+        #
+        # By default, +Array+ and +ActiveRecord::Relation+ are renamed to +list+.
+        #
+        # @return [Hash{String => String}] a hash of class-override pairs
+        def overrides
+          @overrides ||= {
+            'Array' => 'list',
+            'ActiveRecord::Relation' => 'list'
+          }
+        end
+
+        # Registers a new override.
+        #
+        # @param klass [String] the class to override
+        # @param override [String] the override
+        def register_override(klass, override)
+          overrides[klass] = override
         end
       end
 
-      # Returns the type of the decorated object (i.e. its underscored class name).
+      # Returns the type to expose to API clients.
       #
-      # Takes any {TYPE_OVERRIDES} into account.
+      # If an override is present for the decorated class, returns the override, otherwise returns
+      # the underscored class.
       #
-      # @return [String]
+      # @return [String] type to expose
+      #
+      # @see .overrides
       def type
-        type = decorated.class.name
+        Pragma::Decorator::Type.overrides[decorated.class.name] ||
+          underscore_klass(decorated.class.name)
+      end
+
+      private
+
+      def underscore_klass(klass)
+        klass
           .gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
           .gsub(/([a-z\d])([A-Z])/, '\1_\2')
           .downcase
-
-        TYPE_OVERRIDES[type] || type
       end
     end
   end
