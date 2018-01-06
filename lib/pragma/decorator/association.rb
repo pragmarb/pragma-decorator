@@ -2,6 +2,22 @@
 
 module Pragma
   module Decorator
+    # Associations provide a way to define related records on your decorators.
+    #
+    # Once you define an association, it can be expanded by API clients through the +expand+ query
+    # parameter to load the full record.
+    #
+    # @example Defining and expanding an association
+    #   class ArticleDecorator < Pragma::Decorator::Base
+    #     belongs_to :author, decorator: API::V1::User::Decorator
+    #   end
+    #
+    #   # This will return a hash whose `author` key is the ID of the article's author.
+    #   ArticleDecorator.new(article).to_hash
+    #
+    #   # This will return a hash whose `author` key is a hash representing the decorated
+    #   # article's author.
+    #   ArticleDecorator.new(article).to_hash(user_options: { expand: ['author'] })
     module Association
       def self.included(klass)
         klass.extend ClassMethods
@@ -9,14 +25,35 @@ module Pragma
       end
 
       module ClassMethods # :nodoc:
+        # Returns the associations defined on this decorator.
+        #
+        # @return [Hash{Symbol => Reflection}] the associations
         def associations
           @associations ||= {}
         end
 
+        # Defines a +belongs_to+ association on this decorator.
+        #
+        # This will first create an association definition and then define a new property with the
+        # name of the association.
+        #
+        # This method supports all the usual options accepted by +#property+.
+        #
+        # @param property_name [Symbol] name of the association
+        # @param options [Hash] the association's options
         def belongs_to(property_name, options = {})
           define_association :belongs_to, property_name, options
         end
 
+        # Defines a +has_one+ association on this decorator.
+        #
+        # This will first create an association definition and then define a new property with the
+        # name of the association.
+        #
+        # This method supports all the usual options accepted by +#property+.
+        #
+        # @param property_name [Symbol] name of the association
+        # @param options [Hash] the association's options
         def has_one(property_name, options = {}) # rubocop:disable Naming/PredicateName
           define_association :has_one, property_name, options
         end

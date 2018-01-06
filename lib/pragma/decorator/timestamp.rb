@@ -4,7 +4,15 @@ module Pragma
   module Decorator
     # Supports rendering timestamps as UNIX times.
     #
-    # @author Alessandro Desantis
+    # @example Rendering a timestamp as UNIX time
+    #   class ArticleDecorator < Pragma::Decorator::Base
+    #     timestamp :created_at
+    #   end
+    #
+    #   # {
+    #   #   "created_at": 1515250106
+    #   # }
+    #   ArticleDecorator.new(article).to_hash
     module Timestamp
       def self.included(klass)
         klass.extend ClassMethods
