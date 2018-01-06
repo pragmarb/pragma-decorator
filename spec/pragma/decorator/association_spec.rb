@@ -3,6 +3,14 @@
 RSpec.describe Pragma::Decorator::Association do
   subject { decorator }
 
+  before do
+    class OpenStructWithPk < OpenStruct
+      def self.primary_key
+        :id
+      end
+    end
+  end
+
   let(:decorator) { decorator_klass.new(invoice) }
 
   let(:decorator_klass) do
@@ -27,15 +35,7 @@ RSpec.describe Pragma::Decorator::Association do
   let(:company_decorator_klass) do
     Class.new(Pragma::Decorator::Base) do
       property :id
-      property :name, if: -> (user_options:, **) { user_options[:current_user].id == 1 }
-    end
-  end
-
-  before do
-    class OpenStructWithPk < OpenStruct
-      def self.primary_key
-        :id
-      end
+      property :name, if: ->(user_options:, **) { user_options[:current_user].id == 1 }
     end
   end
 

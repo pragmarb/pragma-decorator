@@ -10,7 +10,7 @@ module Pragma
         klass.extend ClassMethods
       end
 
-      module ClassMethods # rubocop:disable Style/Documentation
+      module ClassMethods # :nodoc:
         # Defines a timestamp property which will be rendered as UNIX time.
         #
         # @param name [Symbol] the name of the property

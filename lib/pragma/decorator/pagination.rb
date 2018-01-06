@@ -3,7 +3,7 @@
 module Pragma
   module Decorator
     module Pagination
-      module InstanceMethods
+      module InstanceMethods # :nodoc:
         def current_page
           represented.current_page.to_i
         end

@@ -8,7 +8,7 @@ module Pragma
         klass.include InstanceMethods
       end
 
-      module ClassMethods # rubocop:disable Style/Documentation
+      module ClassMethods # :nodoc:
         def associations
           @associations ||= {}
         end
@@ -48,7 +48,7 @@ module Pragma
         end
       end
 
-      module InstanceMethods
+      module InstanceMethods # :nodoc:
         def validate_expansion(expand)
           check_parent_associations_are_expanded(expand)
           check_expanded_associations_exist(expand)

@@ -8,7 +8,7 @@ module Pragma
     module Type
       TYPE_OVERRIDES = {
         'array' => 'list',
-        'active_record::relation' => 'list',
+        'active_record::relation' => 'list'
       }.freeze
 
       def self.included(klass)

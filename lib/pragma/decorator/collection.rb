@@ -12,13 +12,13 @@ module Pragma
         end
       end
 
-      module InstanceMethods
+      module InstanceMethods # :nodoc:
         def type
           'collection'
         end
       end
 
-      module ClassMethods
+      module ClassMethods # :nodoc:
         def decorate_with(decorator)
           collection :represented, as: :data, exec_context: :decorator, decorator: decorator
         end

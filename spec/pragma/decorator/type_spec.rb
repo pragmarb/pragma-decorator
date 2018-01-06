@@ -18,7 +18,7 @@ RSpec.describe Pragma::Decorator::Type do
   end
 
   context 'when the model is overridden' do
-    let(:model) { [:foo, :bar] }
+    let(:model) { %i[foo bar] }
 
     it 'uses the overridden type' do
       expect(result).to include('type' => 'list')
