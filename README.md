@@ -1,9 +1,9 @@
 # Pragma::Decorator
 
-[![Build Status](https://img.shields.io/travis/pragmarb/pragma-decorator.svg?maxAge=3600&style=flat-square)](https://travis-ci.org/pragmarb/pragma-decorator)
-[![Dependency Status](https://img.shields.io/gemnasium/pragmarb/pragma-decorator.svg?maxAge=3600&style=flat-square)](https://gemnasium.com/github.com/pragmarb/pragma-decorator)
-[![Code Climate](https://img.shields.io/codeclimate/github/pragmarb/pragma-decorator.svg?maxAge=3600&style=flat-square)](https://codeclimate.com/github/pragmarb/pragma-decorator)
-[![Coveralls](https://img.shields.io/coveralls/pragmarb/pragma-decorator.svg?maxAge=3600&style=flat-square)](https://coveralls.io/github/pragmarb/pragma-decorator)
+[![Build Status](https://travis-ci.org/pragmarb/pragma-decorator.svg?branch=master)](https://travis-ci.org/pragmarb/pragma-decorator)
+[![Dependency Status](https://gemnasium.com/badges/github.com/pragmarb/pragma-decorator.svg)](https://gemnasium.com/github.com/pragmarb/pragma-decorator)
+[![Coverage Status](https://coveralls.io/repos/github/pragmarb/pragma-decorator/badge.svg?branch=master)](https://coveralls.io/github/pragmarb/pragma-decorator?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/e51e8d7489eb72ab97ba/maintainability)](https://codeclimate.com/github/pragmarb/pragma-decorator/maintainability)
 
 Decorators are a way to easily convert your API resources to JSON with minimum hassle.
 
