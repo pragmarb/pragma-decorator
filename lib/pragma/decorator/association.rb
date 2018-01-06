@@ -37,7 +37,7 @@ module Pragma
             exec_context: :decorator,
             as: options[:as] || property_name,
             getter: (lambda do |decorator:, user_options:, **_args|
-              Binding.new(
+              Bond.new(
                 reflection: decorator.class.associations[property_name],
                 decorator: decorator
               ).render(user_options)

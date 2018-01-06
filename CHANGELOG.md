@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Added support for `:as` in `timestamp` properties
 - `user_options` are now forwarded to expanded associations
+- Made associations ORM-independent with the Adapter API
 
 ### Fixed
 

@@ -3,21 +3,38 @@
 module Pragma
   module Decorator
     module Association
+      # This is a generic class for all errors during association expansion.
       class ExpansionError < StandardError
       end
 
+      # This is raised when a non-existing association is expanded.
       class AssociationNotFound < ExpansionError
+        # @!attribute [r] property
+        #   @return [String|Sybmol] the property the user tried to expand
         attr_reader :property
 
+        # Initializes the rror.
+        #
+        # @param property [String|Symbol] the property the user tried to expand
         def initialize(property)
           @property = property
           super "The '#{property}' association is not defined."
         end
       end
 
+      # This is raised when the user expanded a nested association without expanding its parent.
       class UnexpandedAssociationParent < ExpansionError
+        # @!attribute [r] child
+        #   @return [String|Symbol] the name of the child association
+        #
+        # @!attribute [r] parent
+        #   @return [String|Symbol] the name of the parent association
         attr_reader :child, :parent
 
+        # Initializes the error.
+        #
+        # @param child [String|Symbol] the name of the child association
+        # @param parent [String|Symbol] the name of the parent association
         def initialize(child, parent)
           @child = child
           @parent = parent
