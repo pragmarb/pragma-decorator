@@ -14,6 +14,10 @@ RSpec.describe Pragma::Decorator::Pagination do
   let(:result) { JSON.parse(subject.to_json) }
 
   context 'with the will_paginate interface' do
+    before do
+      module WillPaginate; end
+    end
+
     let(:collection) do
       OpenStruct.new(
         current_page: 2,
@@ -38,6 +42,10 @@ RSpec.describe Pragma::Decorator::Pagination do
   end
 
   context 'with the Kaminari interface' do
+    before do
+      module Kaminari; end
+    end
+
     let(:collection) do
       OpenStruct.new(
         current_page: 2,

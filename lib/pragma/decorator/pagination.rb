@@ -34,54 +34,61 @@ module Pragma
         # Returns the current page of the collection.
         #
         # @return [Integer] current page number
+        #
+        # @see Adapter::Base#current_page
         def current_page
-          represented.current_page.to_i
+          adapter.current_page
         end
 
         # Returns the next page of the collection.
         #
         # @return [Integer|NilClass] next page number, if any
+        #
+        # @see Adapter::Base#next_page
         def next_page
-          represented.next_page
+          adapter.next_page
         end
 
         # Returns the number of items per page in the collection.
         #
         # @return [Integer] items per page
+        #
+        # @see Adapter::Base#per_page
         def per_page
-          per_page_method = if represented.respond_to?(:per_page)
-            :per_page
-          else
-            :limit_value
-          end
-
-          represented.public_send(per_page_method)
+          adapter.per_page
         end
 
         # Returns the previous page of the collection.
         #
         # @return [Integer|NilClass] previous page number, if any
+        #
+        # @see Adapter::Base#previous_page
         def previous_page
-          previous_page_method = if represented.respond_to?(:previous_page)
-            :previous_page
-          else
-            :prev_page
-          end
-
-          represented.public_send(previous_page_method)
+          adapter.previous_page
         end
 
         # Returns the total number of items in the collection.
         #
         # @return [Integer] number of items
+        #
+        # @see Adapter::Base#total_entries
         def total_entries
-          total_entries_method = if represented.respond_to?(:total_entries)
-            :total_entries
-          else
-            :total_count
-          end
+          adapter.total_entries
+        end
 
-          represented.public_send(total_entries_method)
+        # Returns the total number of pages in the collection.
+        #
+        # @return [Integer] number of pages
+        #
+        # @see Adapter::Base#total_pages
+        def total_pages
+          adapter.total_pages
+        end
+
+        private
+
+        def adapter
+          @adapter ||= Pagination::Adapter.load_for(represented)
         end
       end
 
@@ -91,7 +98,7 @@ module Pragma
         klass.class_eval do
           property :total_entries, exec_context: :decorator
           property :per_page, exec_context: :decorator
-          property :total_pages
+          property :total_pages, exec_context: :decorator
           property :previous_page, exec_context: :decorator
           property :current_page, exec_context: :decorator
           property :next_page, exec_context: :decorator

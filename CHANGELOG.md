@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `user_options` are now forwarded to expanded associations
 - Made associations ORM-independent with the Adapter API
 - Implemented the Type Overrides API
+- Implemented the Pagination Adapter API
 
 ### Changed
 
