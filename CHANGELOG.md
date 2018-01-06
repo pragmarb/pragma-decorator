@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Made associations ORM-independent with the Adapter API
 - Implemented the Type Overrides API
 
+### Changed
+
+- Changed the `#type` of collections from `collection` to `list`
+
 ### Fixed
 
 - Fixed `type` property not returning `list` for instances of `ActiveRecord::Relation`

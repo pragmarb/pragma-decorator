@@ -40,11 +40,11 @@ module Pragma
       end
 
       module InstanceMethods # :nodoc:
-        # Overrides the type of the resource to be +collection+, for compatibility with {Type}.
+        # Overrides the type of the resource to be +list+, for compatibility with {Type}.
         #
         # @see Type
         def type
-          'collection'
+          'list'
         end
       end
 
