@@ -24,4 +24,14 @@ RSpec.describe Pragma::Decorator::Type do
       expect(result).to include('type' => 'list')
     end
   end
+
+  context 'when using a custom override' do
+    before do
+      Pragma::Decorator::Type.register_override('OpenStruct', 'my_override')
+    end
+
+    it 'uses the overridden type' do
+      expect(result).to include('type' => 'my_override')
+    end
+  end
 end
