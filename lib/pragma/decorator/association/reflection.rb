@@ -5,7 +5,7 @@ module Pragma
     module Association
       # Holds the information about an association.
       #
-      # @author Alessandro Desantis
+      # @api private
       class Reflection
         # @!attribute [r] type
         #   @return [Symbol] the type of the association

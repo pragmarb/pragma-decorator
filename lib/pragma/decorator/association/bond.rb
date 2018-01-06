@@ -5,7 +5,7 @@ module Pragma
     module Association
       # Links an association definition to a specific decorator instance, allowing to render it.
       #
-      # @author Alessandro Desantis
+      # @api private
       class Bond
         # @!attribute [r] reflection
         #   @return [Reflection] the association reflection
