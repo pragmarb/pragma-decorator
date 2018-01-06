@@ -27,7 +27,7 @@ RSpec.describe Pragma::Decorator::Type do
 
   context 'when using a custom override' do
     before do
-      Pragma::Decorator::Type.register_override('OpenStruct', 'my_override')
+      Pragma::Decorator::Type.overrides['OpenStruct'] = 'my_override'
     end
 
     it 'uses the overridden type' do

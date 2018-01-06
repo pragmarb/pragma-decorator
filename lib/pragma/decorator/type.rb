@@ -35,14 +35,6 @@ module Pragma
             'ActiveRecord::Relation' => 'list'
           }
         end
-
-        # Registers a new override.
-        #
-        # @param klass [String] the class to override
-        # @param override [String] the override
-        def register_override(klass, override)
-          overrides[klass] = override
-        end
       end
 
       # Returns the type to expose to API clients.
