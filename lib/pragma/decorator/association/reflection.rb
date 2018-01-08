@@ -52,6 +52,7 @@ module Pragma
             expandable: false,
             render_nil: false,
             exec_context: :decorated,
+            optimize: true,
           }.merge(options).tap do |opts|
             opts[:exec_context] = opts[:exec_context].to_sym
           end

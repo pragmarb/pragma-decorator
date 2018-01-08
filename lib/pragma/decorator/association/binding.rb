@@ -55,7 +55,7 @@ module Pragma
         #
         # @return [String]
         def unexpanded_value
-          if decorator_context? || model_reflection.nil?
+          if decorator_context? || model_reflection.nil? || !reflection.options[:optimize]
             return associated_object&.public_send(associated_object.class.primary_key)
           end
 
