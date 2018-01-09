@@ -9,7 +9,7 @@ module Pragma
     #
     # @example Including the resource's type
     #   class ArticleDecorator < Pragma::Decorator::Base
-    #     feature Pragma::Decorator::Type
+    #     include Pragma::Decorator::Type
     #   end
     #
     #   # {

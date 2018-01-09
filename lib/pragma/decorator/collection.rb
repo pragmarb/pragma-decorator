@@ -9,7 +9,7 @@ module Pragma
     #
     # @example Using Collection to include a total count
     #   class ArticlesDecorator < Pragma::Decorator::Base
-    #     feature Pragma::Decorator::Collection
+    #     include Pragma::Decorator::Collection
     #
     #     decorate_with ArticleDecorator
     #

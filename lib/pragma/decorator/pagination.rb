@@ -11,8 +11,8 @@ module Pragma
     #
     # @example Including pagination metadata
     #   class ArticlesDecorator < Pragma::Decorator::Base
-    #     feature Pragma::Decorator::Collection
-    #     feature Pragma::Decorator::Pagination
+    #     include Pragma::Decorator::Collection
+    #     include Pragma::Decorator::Pagination
     #   end
     #
     #   # {
