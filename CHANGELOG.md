@@ -18,11 +18,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - Changed the `#type` of collections from `collection` to `list`
+- Replaced `feature` with `include` in tests and examples
 
 ### Fixed
 
 - Fixed `type` property not returning `list` for instances of `ActiveRecord::Relation`
-
+- Fixed bugs with the optimization of associations with custom scopes
+ 
 ## [2.0.0]
 
 First Pragma 2 release.
