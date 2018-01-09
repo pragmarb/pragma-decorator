@@ -84,7 +84,7 @@ module API
     module User
       module Decorator
         class Instance < Pragma::Decorator::Base
-          feature Pragma::Decorator::Type
+          include Pragma::Decorator::Type
         end
       end
     end
@@ -134,7 +134,7 @@ module API
     module User
       module Decorator
         class Instance < Pragma::Decorator::Base
-          feature Pragma::Decorator::Timestamp
+          include Pragma::Decorator::Timestamp
 
           timestamp :created_at
         end
@@ -166,7 +166,7 @@ module API
     module Invoice
       module Decorator
         class Instance < Pragma::Decorator::Base
-          feature Pragma::Decorator::Association
+          include Pragma::Decorator::Association
 
           belongs_to :customer, decorator: API::V1::Customer::Decorator
         end
@@ -225,7 +225,7 @@ module API
     module Invoice
       module Decorator
         class Collection < Pragma::Decorator::Base
-          feature Pragma::Decorator::Collection
+          include Pragma::Decorator::Collection
           decorate_with Instance # specify the instance decorator
           
           property :total_cents, exec_context: :decorator
@@ -275,8 +275,8 @@ module API
     module Invoice
       module Decorator
         class Collection < Pragma::Decorator::Base
-          feature Pragma::Decorator::Collection
-          feature Pragma::Decorator::Pagination
+          include Pragma::Decorator::Collection
+          include Pragma::Decorator::Pagination
           
           decorate_with Instance
         end
