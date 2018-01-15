@@ -16,7 +16,7 @@ module Pragma
             #
             # @return [Boolean] whether the object is an instance of +ActiveRecord::Base+
             def supports?(model)
-              Object.const_defined?('ActiveRecord::Base') && model.is_a?(ActiveRecord::Base)
+              Object.const_defined?('::ActiveRecord::Base') && model.is_a?(::ActiveRecord::Base)
             end
           end
 
