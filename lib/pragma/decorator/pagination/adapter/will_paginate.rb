@@ -3,8 +3,8 @@
 module Pragma
   module Decorator
     module Pagination
-      module Adapter
-        # This adapter provides support for retireving pagination information from collections
+      module Adapter # :nodoc:
+        # This adapter provides support for retrieving pagination information from collections
         # paginated with {https://github.com/mislav/will_paginate will_paginate}.
         #
         # @api private
@@ -65,6 +65,8 @@ module Pragma
             collection.next_page
           end
         end
+
+        adapters << WillPaginate
       end
     end
   end

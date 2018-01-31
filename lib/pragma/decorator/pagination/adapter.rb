@@ -8,29 +8,37 @@ module Pragma
       #
       # @api private
       module Adapter
-        # The list of supported adapters, in order of priority.
-        SUPPORTED_ADAPTERS = [Kaminari, WillPaginate].freeze
+        class << self
+          # Loads the adapter for the given collection.
+          #
+          # This will try {SUPPORTED_ADAPTERS} in order until it finds an adapter that supports the
+          # collection. When the adapter is found, it will return a new instance of it.
+          #
+          # @param collection [Object] the collection to load the adapter for
+          #
+          # @return [Adapter::Base]
+          #
+          # @see Adapter::Base.supports?
+          #
+          # @raise [AdapterError] if no adapter supports the collection
+          def load_for(collection)
+            adapter_klass = adapters.find do |klass|
+              klass.supports?(collection)
+            end
 
-        # Loads the adapter for the given collection.
-        #
-        # This will try {SUPPORTED_ADAPTERS} in order until it finds an adapter that supports the
-        # collection. When the adapter is found, it will return a new instance of it.
-        #
-        # @param collection [Object] the collection to load the adapter for
-        #
-        # @return [Adapter::Base]
-        #
-        # @see Adapter::Base.supports?
-        #
-        # @raise [AdapterError] if no adapter supports the collection
-        def self.load_for(collection)
-          adapter_klass = SUPPORTED_ADAPTERS.find do |klass|
-            klass.supports?(collection)
+            fail NoAdapterError unless adapter_klass
+
+            adapter_klass.new(collection)
           end
 
-          fail NoAdapterError unless adapter_klass
-
-          adapter_klass.new(collection)
+          # Returns the available pagination adpaters.
+          #
+          # This can be used to register new adapters: just append your class to the collection.
+          #
+          # @return [Array] an array of pagination adapters
+          def adapters
+            @adapters ||= []
+          end
         end
 
         # This error is raised when no adapter can be found for a collection.

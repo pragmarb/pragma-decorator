@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added support for custom pagination adapters
+
+### Changed
+
+- Renamed `Pagination#adapter` to `#pagination_adapter`
+
 ## [2.1.1]
 
 ### Fixed
