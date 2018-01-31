@@ -116,7 +116,7 @@ module Pragma
             scope = association_reflection.klass.all
 
             if association_reflection.scope
-              scope = association_reflection.instance_eval(&association_reflection.scope)
+              scope = scope.instance_eval(&association_reflection.scope)
             end
 
             yield(scope).pluck(association_reflection.association_primary_key).first
