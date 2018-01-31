@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Renamed `Pagination#adapter` to `#pagination_adapter`
 
+### Fixed
+
+- Fixed AR association adapter not working with custom scopes
+
 ## [2.1.1]
 
 ### Fixed
