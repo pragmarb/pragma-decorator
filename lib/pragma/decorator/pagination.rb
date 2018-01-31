@@ -37,7 +37,7 @@ module Pragma
         #
         # @see Adapter::Base#current_page
         def current_page
-          adapter.current_page
+          pagination_adapter.current_page
         end
 
         # Returns the next page of the collection.
@@ -46,7 +46,7 @@ module Pragma
         #
         # @see Adapter::Base#next_page
         def next_page
-          adapter.next_page
+          pagination_adapter.next_page
         end
 
         # Returns the number of items per page in the collection.
@@ -55,7 +55,7 @@ module Pragma
         #
         # @see Adapter::Base#per_page
         def per_page
-          adapter.per_page
+          pagination_adapter.per_page
         end
 
         # Returns the previous page of the collection.
@@ -64,7 +64,7 @@ module Pragma
         #
         # @see Adapter::Base#previous_page
         def previous_page
-          adapter.previous_page
+          pagination_adapter.previous_page
         end
 
         # Returns the total number of items in the collection.
@@ -73,7 +73,7 @@ module Pragma
         #
         # @see Adapter::Base#total_entries
         def total_entries
-          adapter.total_entries
+          pagination_adapter.total_entries
         end
 
         # Returns the total number of pages in the collection.
@@ -82,13 +82,13 @@ module Pragma
         #
         # @see Adapter::Base#total_pages
         def total_pages
-          adapter.total_pages
+          pagination_adapter.total_pages
         end
 
         private
 
-        def adapter
-          @adapter ||= Pagination::Adapter.load_for(represented)
+        def pagination_adapter
+          @pagination_adapter ||= Pagination::Adapter.load_for(represented)
         end
       end
 
