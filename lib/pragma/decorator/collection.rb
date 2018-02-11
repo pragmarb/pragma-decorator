@@ -41,7 +41,7 @@ module Pragma
                 self.class.instance_decorator.call(item).represent(item).to_hash(options)
               end
             elsif self.class.instance_decorator
-              self.class.instance_decorator.represent(represented).to_hash(options)
+              self.class.instance_decorator.represent(represented.to_a).to_hash(options)
             else
               represented
             end
