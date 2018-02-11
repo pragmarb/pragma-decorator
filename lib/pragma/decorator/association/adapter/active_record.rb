@@ -103,7 +103,7 @@ module Pragma
 
           def compute_has_one_fk
             if model.association(reflection.property).loaded?
-              return associated_object&.public_send(associated_object.association_primary_key)
+              return associated_object&.public_send(association_reflection.association_primary_key)
             end
 
             pluck_association_fk do |scope|
