@@ -61,7 +61,8 @@ module Pragma
           #
           # @todo Allow to specify a different PK attribute when +exec_context+ is +decorator+
           def primary_key
-            return associated_object&.id if reflection.options[:exec_context] == :decorator
+            return associated_object&.id if association_reflection.nil? ||
+              reflection.options[:exec_context] == :decorator
 
             case reflection.type
             when :belongs_to
@@ -127,6 +128,7 @@ module Pragma
           end
 
           def check_type_consistency
+            return unless association_reflection
             return if association_reflection.macro.to_sym == reflection.type.to_sym
 
             fail InconsistentTypeError.new(
