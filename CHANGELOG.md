@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Fixed AR association adapter not working with custom scopes
 - Fixed AR association adapter not working with `has_one`
+- Fixed associations inheritance
 
 ## [2.1.1]
 

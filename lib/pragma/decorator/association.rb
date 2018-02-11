@@ -29,7 +29,7 @@ module Pragma
         #
         # @return [Hash{Symbol => Reflection}] the associations
         def associations
-          @associations ||= {}
+          @associations ||= superclass.respond_to?(:associations) ? superclass.associations : {}
         end
 
         # Defines a +belongs_to+ association on this decorator.
