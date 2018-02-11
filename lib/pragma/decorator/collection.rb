@@ -35,7 +35,19 @@ module Pragma
         klass.extend ClassMethods
 
         klass.class_eval do
-          collection :represented, as: :data, exec_context: :decorator
+          collection :data, exec_context: :decorator, getter: (lambda do |options:, **|
+            represented_collection = if self.class.instance_decorator.is_a?(Proc)
+              represented.map do |item|
+                self.class.instance_decorator.call(item).represent(item).to_hash(options)
+              end
+            elsif self.class.instance_decorator
+              self.class.instance_decorator.represent(represented).to_hash(options)
+            else
+              represented
+            end
+
+            represented_collection
+          end)
         end
       end
 
@@ -49,13 +61,16 @@ module Pragma
       end
 
       module ClassMethods # :nodoc:
+        # @!attribute [r]
+        #   @return [Class\Proc] the instance decorator to use
+        attr_reader :instance_decorator
+
         # Defines the decorator to use for each resource in the collection.
         #
-        # @param decorator [Class] a decorator class
-        #
-        # @todo Accept a callable/block or document how to decorate polymorphic collections
+        # @param decorator [Class|Proc] a decorator class, or a callable accepting a represented
+        #   object as argument and returning a decorator class
         def decorate_with(decorator)
-          collection :represented, as: :data, exec_context: :decorator, decorator: decorator
+          @instance_decorator = decorator
         end
       end
     end
