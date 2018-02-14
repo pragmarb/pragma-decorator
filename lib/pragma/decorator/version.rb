@@ -2,6 +2,6 @@
 
 module Pragma
   module Decorator
-    VERSION = '2.1.1'
+    VERSION = '2.2.0'
   end
 end

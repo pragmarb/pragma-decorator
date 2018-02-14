@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.2.0]
+
 ### Added
 
 - Added support for custom pagination adapters
@@ -55,6 +57,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 First Pragma 2 release.
 
 [Unreleased]: https://github.com/pragmarb/pragma-decorator/compare/v2.1.1...HEAD
+[2.2.0]: https://github.com/pragmarb/pragma-decorator/compare/v2.1.1...v2.2.0
 [2.1.1]: https://github.com/pragmarb/pragma-decorator/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/pragmarb/pragma-decorator/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/pragmarb/pragma-decorator/compare/v1.2.0...v2.0.0
