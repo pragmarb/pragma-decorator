@@ -45,7 +45,6 @@ module Pragma
             else
               represented
             end
-
             represented_collection
           end)
         end
