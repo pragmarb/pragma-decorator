@@ -10,6 +10,8 @@ module Pragma
         #
         # @api private
         class Poro < Base
+          include Adaptor
+
           class << self
             # Returns whether the adapter supports the model.
             #

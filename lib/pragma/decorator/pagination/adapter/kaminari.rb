@@ -17,7 +17,7 @@ module Pragma
             #
             # @return [Boolean] whether the adapter supports the given collection
             #
-            # @see Adapter.load_for
+            # @see Adapter.load_adaptor
             def supports?(collection)
               Object.const_defined?('Kaminari') && collection.respond_to?(:prev_page)
             end
@@ -65,8 +65,6 @@ module Pragma
             collection.next_page
           end
         end
-
-        adapters << Kaminari
       end
     end
   end

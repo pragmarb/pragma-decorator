@@ -98,7 +98,7 @@ module Pragma
         private
 
         def adapter
-          @adapter ||= Adapter.load_for(self)
+          @adapter ||= Adapter.load_adaptor(self)
         end
 
         def flatten_expand(expand)

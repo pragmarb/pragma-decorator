@@ -9,6 +9,8 @@ module Pragma
         #
         # @api private
         class WillPaginate < Base
+          include Adaptor
+
           class << self
             # Returns whether this adapter supports the given collection.
             #
@@ -17,7 +19,7 @@ module Pragma
             #
             # @return [Boolean] whether the adapter supports the given collection
             #
-            # @see Adapter.load_for
+            # @see Adapter.load_adaptor
             def supports?(collection)
               Object.const_defined?('WillPaginate') && collection.respond_to?(:previous_page)
             end
@@ -65,8 +67,6 @@ module Pragma
             collection.next_page
           end
         end
-
-        adapters << WillPaginate
       end
     end
   end

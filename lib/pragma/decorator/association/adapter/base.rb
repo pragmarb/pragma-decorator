@@ -11,19 +11,6 @@ module Pragma
         #
         # @api private
         class Base
-          class << self
-            # Returns whether the adapter supports the given model.
-            #
-            # @param _model [Object] a model
-            #
-            # @return [Boolean] whether the adpater supports the model
-            #
-            # @abstract
-            def supports?(_model)
-              fail NotImplementedError
-            end
-          end
-
           # @!attribute [r] bond
           #   @return [Bond] the bond this adapter has been instantiated with
           attr_reader :bond

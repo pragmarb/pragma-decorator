@@ -14,17 +14,6 @@ module Pragma
           #   @return [Object] the collection this adapter is working with
           attr_reader :collection
 
-          class << self
-            # Returns whether this adapter supports the given collection.
-            #
-            # @return [Boolean] whether the adapter supports the given collection
-            #
-            # @see Adapter.load_for
-            def supports?(_collection)
-              fail NotImplementedError
-            end
-          end
-
           # Initializes the adapter.
           #
           # @param collection [Object] the collection to work with

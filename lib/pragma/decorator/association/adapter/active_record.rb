@@ -9,6 +9,8 @@ module Pragma
         #
         # @api private
         class ActiveRecord < Base
+          include Adaptor
+
           class << self
             # Returns whether the adapter supports the given model.
             #

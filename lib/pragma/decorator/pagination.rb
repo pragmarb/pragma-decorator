@@ -88,7 +88,7 @@ module Pragma
         private
 
         def pagination_adapter
-          @pagination_adapter ||= Pagination::Adapter.load_for(represented)
+          @pagination_adapter ||= Pagination::Adapter.load_adaptor(represented)
         end
       end
 
