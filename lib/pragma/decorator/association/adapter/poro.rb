@@ -13,14 +13,14 @@ module Pragma
           include Adaptor
 
           class << self
-            # Returns whether the adapter supports the model.
+            # Returns whether the adapter supports the bond.
             #
             # Since this is the default adapter, this always returns +true+.
             #
-            # @param _model [Object] the model to check
+            # @param _bond [Bond] the bond to check
             #
             # @return [Boolean] always +true+
-            def supports?(_model)
+            def supports?(_bond)
               true
             end
           end

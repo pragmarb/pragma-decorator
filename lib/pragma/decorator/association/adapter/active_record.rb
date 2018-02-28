@@ -12,13 +12,14 @@ module Pragma
           include Adaptor
 
           class << self
-            # Returns whether the adapter supports the given model.
+            # Returns whether the adapter supports the given bond.
             #
-            # @param model [Object] the model to check
+            # @param bond [Bond] the bond to check
             #
             # @return [Boolean] whether the object is an instance of +ActiveRecord::Base+
-            def supports?(model)
-              Object.const_defined?('::ActiveRecord::Base') && model.is_a?(::ActiveRecord::Base)
+            def supports?(bond)
+              Object.const_defined?('::ActiveRecord::Base') &&
+                bond.model.is_a?(::ActiveRecord::Base)
             end
           end
 
