@@ -91,8 +91,14 @@ module Pragma
           private
 
           def compute_belongs_to_fk
+            primary_key = if association_reflection.polymorphic?
+              association_reflection.options[:primary_key] || associated_object.class.primary_key
+            else
+              association_reflection.association_primary_key
+            end
+
             if model.association(reflection.property).loaded?
-              return associated_object&.public_send(association_reflection.association_primary_key)
+              return associated_object&.public_send(primary_key)
             end
 
             if association_reflection.scope.nil?
@@ -101,7 +107,7 @@ module Pragma
 
             pluck_association_fk do |scope|
               fk = model.public_send(association_reflection.foreign_key)
-              scope.where(association_reflection.association_primary_key => fk)
+              scope.where(primary_key => fk)
             end
           end
 
