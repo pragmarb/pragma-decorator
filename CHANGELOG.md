@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.2.3]
+
 ### Fixed
 
 - Fixed an issue with the loading of polymorphic associations
@@ -73,7 +75,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 First Pragma 2 release.
 
 [Unreleased]: https://github.com/pragmarb/pragma-decorator/compare/v2.2.2...HEAD
-[2.2.1]: https://github.com/pragmarb/pragma-decorator/compare/v2.2.1...v2.2.2
+[2.2.3]: https://github.com/pragmarb/pragma-decorator/compare/v2.2.2...v2.2.3
+[2.2.2]: https://github.com/pragmarb/pragma-decorator/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/pragmarb/pragma-decorator/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/pragmarb/pragma-decorator/compare/v2.1.1...v2.2.0
 [2.1.1]: https://github.com/pragmarb/pragma-decorator/compare/v2.1.0...v2.1.1
