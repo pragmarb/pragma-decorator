@@ -106,12 +106,8 @@ module Pragma
 
           expected_beginning = "#{reflection.property}."
 
-          expand.reject { |value| value.to_s == reflection.property.to_s }.map do |value|
-            if value.start_with?(expected_beginning)
-              value.sub(expected_beginning, '')
-            else
-              value
-            end
+          expand.select { |value| value.start_with?(expected_beginning) }.map do |value|
+            value.sub(expected_beginning, '')
           end
         end
 
