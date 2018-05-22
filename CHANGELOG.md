@@ -7,12 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed an issue where expanding a property would expand properties with the same name in associated objects
+
 ## [2.2.3]
 
 ### Fixed
 
 - Fixed an issue with the loading of polymorphic associations
-- Fixed an issue where expanding a property would expand properties with the same name in associated objects
 
 ## [2.2.2]
 
