@@ -184,7 +184,7 @@ Rendering an invoice will now create the following representation:
 }
 ```
 
-You can pass `expand[]=customer` as a request parameter and have the `customer` property expanded 
+You can pass `expand[]=customer` as a request parameter and have the `customer` property expanded
 into a full object!
 
 ```json
@@ -197,7 +197,7 @@ into a full object!
 ```
 
 This also works for nested associations. For instance, if the customer decorator had a `company`
-association, you could pass `expand[]=customer&expand[]=customer.company` to get the company 
+association, you could pass `expand[]=customer&expand[]=customer.company` to get the company
 expanded too.
 
 Note that you will have to pass the associations to expand as a user option when rendering:
@@ -227,9 +227,9 @@ module API
         class Collection < Pragma::Decorator::Base
           include Pragma::Decorator::Collection
           decorate_with Instance # specify the instance decorator
-          
+
           property :total_cents, exec_context: :decorator
-          
+
           def total_cents
             represented.sum(:total_cents)
           end
@@ -266,7 +266,7 @@ about the entire collection (not just the current page) in the response.
 
 ### Pagination
 
-Speaking of pagination, you can use `Pragma::Decorator::Pagination` in combination with 
+Speaking of pagination, you can use `Pragma::Decorator::Pagination` in combination with
 `Collection` to include pagination data in your response:
 
 ```ruby
@@ -277,7 +277,7 @@ module API
         class Collection < Pragma::Decorator::Base
           include Pragma::Decorator::Collection
           include Pragma::Decorator::Pagination
-          
+
           decorate_with Instance
         end
       end
@@ -312,8 +312,33 @@ Which will produce the following JSON:
 }
 ```
 
-It works with both [will_paginate](https://github.com/mislav/will_paginate) and 
+It works with both [will_paginate](https://github.com/mislav/will_paginate) and
 [Kaminari](https://github.com/kaminari/kaminari)!
+
+### Restricting property visibility
+
+If you want to only show certain properties to admins, you can do it with the `if` option combined
+with the data passed by Pragma:
+
+```ruby
+module API
+  module V1
+    module User
+      module Decorator
+        class Instance < Pragma::Decorator::Base
+          property :id
+          property :first_name
+          property :last_name
+          property :email, if: -> (user_options:, decorated:, **) {
+            # Only show the the email to admins or to the same user.
+            user_options[:current_user].admin? || user_options[:current_user] == decorated
+          }
+        end
+      end
+    end
+  end
+end
+```
 
 ## Contributing
 
