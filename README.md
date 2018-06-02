@@ -316,8 +316,7 @@ It works with both [will_paginate](https://github.com/mislav/will_paginate) and
 
 ### Restricting property visibility
 
-If you want to only show certain properties to admins, you can do it with the `if` option combined
-with the data passed by Pragma:
+If you want to show or hide certain properties programmatically, you can do it with the `if` option:
 
 ```ruby
 module API
@@ -329,7 +328,7 @@ module API
           property :first_name
           property :last_name
           property :email, if: -> (user_options:, decorated:, **) {
-            # Only show the the email to admins or to the same user.
+            # Only show the email to admins or to the same user.
             user_options[:current_user].admin? || user_options[:current_user] == decorated
           }
         end
