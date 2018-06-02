@@ -1,7 +1,6 @@
 # Pragma::Decorator
 
 [![Build Status](https://travis-ci.org/pragmarb/pragma-decorator.svg?branch=master)](https://travis-ci.org/pragmarb/pragma-decorator)
-[![Dependency Status](https://gemnasium.com/badges/github.com/pragmarb/pragma-decorator.svg)](https://gemnasium.com/github.com/pragmarb/pragma-decorator)
 [![Coverage Status](https://coveralls.io/repos/github/pragmarb/pragma-decorator/badge.svg?branch=master)](https://coveralls.io/github/pragmarb/pragma-decorator?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e51e8d7489eb72ab97ba/maintainability)](https://codeclimate.com/github/pragmarb/pragma-decorator/maintainability)
 
