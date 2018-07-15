@@ -29,9 +29,9 @@ module Pragma
         def associated_object
           case reflection.options[:exec_context]
           when :decorated
-            model.public_send(reflection.property)
+            model.public_send(reflection.attribute)
           when :decorator
-            decorator.public_send(reflection.property)
+            decorator.public_send(reflection.attribute)
           end
         end
 
@@ -81,7 +81,7 @@ module Pragma
         #
         # @return [Hash|Pragma::Decorator::Base]
         def render(user_options)
-          if user_options[:expand]&.any? { |value| value.to_s == reflection.property.to_s }
+          if user_options[:expand]&.any? { |value| value.to_s == reflection.name.to_s }
             expanded_value(user_options)
           else
             unexpanded_value
@@ -104,7 +104,7 @@ module Pragma
         def flatten_expand(expand)
           expand ||= []
 
-          expected_beginning = "#{reflection.property}."
+          expected_beginning = "#{reflection.name}."
 
           expand.select { |value| value.start_with?(expected_beginning) }.map do |value|
             value.sub(expected_beginning, '')

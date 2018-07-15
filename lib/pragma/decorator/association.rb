@@ -39,10 +39,10 @@ module Pragma
         #
         # This method supports all the usual options accepted by +#property+.
         #
-        # @param property_name [Symbol] name of the association
+        # @param attribute_name [Symbol] name of the association
         # @param options [Hash] the association's options
-        def belongs_to(property_name, options = {})
-          define_association :belongs_to, property_name, options
+        def belongs_to(attribute_name, options = {})
+          define_association :belongs_to, attribute_name, options
         end
 
         # Defines a +has_one+ association on this decorator.
@@ -52,36 +52,43 @@ module Pragma
         #
         # This method supports all the usual options accepted by +#property+.
         #
-        # @param property_name [Symbol] name of the association
+        # @param attribute_name [Symbol] name of the association
         # @param options [Hash] the association's options
-        def has_one(property_name, options = {}) # rubocop:disable Naming/PredicateName
-          define_association :has_one, property_name, options
+        def has_one(attribute_name, options = {}) # rubocop:disable Naming/PredicateName
+          define_association :has_one, attribute_name, options
         end
 
         private
 
-        def define_association(type, property_name, options = {})
-          create_association_definition(type, property_name, options)
-          create_association_property(type, property_name, options)
+        def define_association(type, attribute_name, options = {})
+          create_association_definition(type, attribute_name, options)
+          create_association_property(attribute_name, options)
         end
 
-        def create_association_definition(type, property_name, options)
-          associations[property_name.to_sym] = Reflection.new(type, property_name, options)
+        def create_association_definition(type, attribute_name, options)
+          association_name = options.fetch(:as, attribute_name.to_sym)
+          associations[association_name] = Reflection.new(options.merge(
+            type: type,
+            name: association_name,
+            attribute: attribute_name
+          ))
         end
 
-        def create_association_property(_type, property_name, options)
+        def create_association_property(attribute_name, options)
+          association_name = options.fetch(:as, attribute_name.to_sym)
+
           property_options = options.dup.tap { |po| po.delete(:decorator) }.merge(
             exec_context: :decorator,
-            as: options[:as] || property_name,
+            as: options[:as] || attribute_name,
             getter: (lambda do |decorator:, user_options:, **_args|
               Bond.new(
-                reflection: decorator.class.associations[property_name],
+                reflection: decorator.class.associations[association_name],
                 decorator: decorator
               ).render(user_options)
             end)
           )
 
-          property("_#{property_name}_association", property_options)
+          property("_#{association_name}_association", property_options)
         end
       end
 
