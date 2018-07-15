@@ -96,7 +96,7 @@ This would result in the following representation:
 ```json
 {
   "type": "user",
-  "...": "...""
+  "...": "..."
 }
 ```
 
@@ -167,7 +167,7 @@ module API
         class Instance < Pragma::Decorator::Base
           include Pragma::Decorator::Association
 
-          belongs_to :customer, decorator: API::V1::Customer::Decorator
+          belongs_to :customer, decorator: API::V1::Customer::Decorator::Instance
         end
       end
     end
@@ -211,7 +211,26 @@ decorator.to_json(user_options: {
 Needless to say, this is done automatically for you when you use all components together through
 the [pragma](https://github.com/pragmarb/pragma) gem! :)
 
-Associations support all the options supported by `#property`.
+Associations support all the options supported by `#property`. Additionally, `decorator` can be a
+callable object, which is useful for polymorphic associations:
+
+```ruby
+module API
+  module V1
+    module Discount
+      module Decorator
+        class Instance < Pragma::Decorator::Base
+          include Pragma::Decorator::Association
+
+          belongs_to :discountable, decorator: -> (discountable) {
+            "API::V1::#{discountable.class}::Decorator::Instance".constantize
+          }
+        end
+      end
+    end
+  end
+end
+```
 
 ### Collection
 
