@@ -180,6 +180,23 @@ RSpec.describe Pragma::Decorator::Association do
     it "renders the associated object's ID" do
       expect(result).to include('customer' => customer.id)
     end
+
+    context 'when expanding' do
+      let(:expand) { ['customer', 'customer.company'] }
+
+      it 'expands properly' do
+        expect(result).to include(
+          'customer' => a_hash_including(
+            'id' => customer.id,
+            'full_name' => customer.full_name,
+            'company' => a_hash_including(
+              'id' => company.id,
+              'name' => company.name
+            )
+          )
+        )
+      end
+    end
   end
 
   describe '#validate_expansion' do

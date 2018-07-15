@@ -10,17 +10,17 @@ module Pragma
         # @!attribute [r] type
         #   @return [Symbol] the type of the association
         #
-        # @!attribute [r] property
-        #   @return [Symbol] the property holding the associated object
+        # @!attribute [r] attribute
+        #   @return [Symbol] the attribute holding the associated object
         #
         # @!attribute [r] options
         #   @return [Hash] additional options for the association
-        attr_reader :type, :property, :options
+        attr_reader :type, :name, :attribute, :options
 
         # Initializes the association.
         #
         # @param type [Symbol] the type of the association
-        # @param property [Symbol] the property holding the associated object
+        # @param attribute [Symbol] the attribute holding the associated object
         # @param options [Hash] additional options
         #
         # @option options [Class|Proc] :decorator the decorator to use for the associated object
@@ -28,9 +28,10 @@ module Pragma
         # @option options [Boolean] :render_nil (`true`) whether to render a +nil+ association
         # @option options [Symbol] :exec_context (`decorated`) whether to call the getter on the
         #   decorator (+decorator+) or the decorated object (+decorated+)
-        def initialize(type, property, **options)
+        def initialize(type:, name:, attribute:, **options)
           @type = type
-          @property = property
+          @name = name
+          @attribute = attribute
           @options = options
 
           normalize_options
