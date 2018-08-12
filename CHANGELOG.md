@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.2.5]
+
 ### Fixed
 
 - Fixed the expansion of associations with custom names requiring the original name to be used
@@ -85,7 +87,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 First Pragma 2 release.
 
-[Unreleased]: https://github.com/pragmarb/pragma-decorator/compare/v2.2.4...HEAD
+[Unreleased]: https://github.com/pragmarb/pragma-decorator/compare/v2.2.5...HEAD
+[2.2.5]: https://github.com/pragmarb/pragma-decorator/compare/v2.2.4...v2.2.5
 [2.2.4]: https://github.com/pragmarb/pragma-decorator/compare/v2.2.3...v2.2.4
 [2.2.3]: https://github.com/pragmarb/pragma-decorator/compare/v2.2.2...v2.2.3
 [2.2.2]: https://github.com/pragmarb/pragma-decorator/compare/v2.2.1...v2.2.2
