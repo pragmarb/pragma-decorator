@@ -55,7 +55,7 @@ module Pragma
         # @param model_type [Symbol|String] the real type of the association
         def initialize(decorator:, reflection:, model_type:)
           message = <<~MSG.tr("\n", ' ')
-            #{decorator.class}: Association #{reflection.property} is defined as #{model_type} on
+            #{decorator.class}: Association #{reflection.attribute} is defined as #{model_type} on
             the model, but as #{reflection.type} in the decorator.
           MSG
 

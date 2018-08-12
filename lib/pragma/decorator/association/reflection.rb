@@ -10,6 +10,9 @@ module Pragma
         # @!attribute [r] type
         #   @return [Symbol] the type of the association
         #
+        # @!attribute [r] name
+        #   @return [Symbol] the name of the association property
+        #
         # @!attribute [r] attribute
         #   @return [Symbol] the attribute holding the associated object
         #

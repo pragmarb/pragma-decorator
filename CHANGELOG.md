@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [2.2.5]
+## [2.2.6]
+
+### Fixed
+
+- Fixed an issue with association definition
+
+## [2.2.5] (yanked)
 
 ### Fixed
 
@@ -87,7 +93,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 First Pragma 2 release.
 
-[Unreleased]: https://github.com/pragmarb/pragma-decorator/compare/v2.2.5...HEAD
+[Unreleased]: https://github.com/pragmarb/pragma-decorator/compare/v2.2.6...HEAD
+[2.2.6]: https://github.com/pragmarb/pragma-decorator/compare/v2.2.5...v2.2.6
 [2.2.5]: https://github.com/pragmarb/pragma-decorator/compare/v2.2.4...v2.2.5
 [2.2.4]: https://github.com/pragmarb/pragma-decorator/compare/v2.2.3...v2.2.4
 [2.2.3]: https://github.com/pragmarb/pragma-decorator/compare/v2.2.2...v2.2.3

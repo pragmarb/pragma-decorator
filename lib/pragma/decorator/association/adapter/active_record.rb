@@ -97,7 +97,7 @@ module Pragma
               association_reflection.association_primary_key
             end
 
-            if model.association(reflection.property).loaded?
+            if model.association(reflection.attribute).loaded?
               return associated_object&.public_send(primary_key)
             end
 
@@ -112,7 +112,7 @@ module Pragma
           end
 
           def compute_has_one_fk
-            if model.association(reflection.property).loaded?
+            if model.association(reflection.attribute).loaded?
               return associated_object&.public_send(association_reflection.association_primary_key)
             end
 
@@ -133,7 +133,7 @@ module Pragma
           end
 
           def association_reflection
-            @association_reflection ||= model.class.reflect_on_association(reflection.property)
+            @association_reflection ||= model.class.reflect_on_association(reflection.attribute)
           end
 
           def check_type_consistency
