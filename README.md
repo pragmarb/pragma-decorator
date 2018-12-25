@@ -118,7 +118,13 @@ module API
 end
 ```
 
-Note: `array` is already overridden with the more language-agnostic `list`.
+`Array` and `ActiveRecord::Relation` are already overridden as `list` to avoid exposing internal
+details. If you want to specify your own global overrides, you can do it by adding entries to the
+`Pragma::Decorator::Type.overrides` hash:
+
+```ruby
+Pragma::Decorator::Type.overrides['Article'] = 'post'
+```
 
 ### Timestamps
 
