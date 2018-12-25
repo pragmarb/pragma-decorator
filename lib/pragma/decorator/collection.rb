@@ -11,8 +11,6 @@ module Pragma
     #   class ArticlesDecorator < Pragma::Decorator::Base
     #     include Pragma::Decorator::Collection
     #
-    #     decorate_with ArticleDecorator
-    #
     #     property :total_count, exec_context: :decorator
     #
     #     def total_count
@@ -60,16 +58,24 @@ module Pragma
       end
 
       module ClassMethods # :nodoc:
-        # @!attribute [r]
-        #   @return [Class\Proc] the instance decorator to use
-        attr_reader :instance_decorator
-
         # Defines the decorator to use for each resource in the collection.
         #
         # @param decorator [Class|Proc] a decorator class, or a callable accepting a represented
         #   object as argument and returning a decorator class
         def decorate_with(decorator)
           @instance_decorator = decorator
+        end
+
+        # Returns the instance decorator for this collection.
+        #
+        # If no decorator was set manually with {#decorate_with}, this assumes the decorator is in
+        # the same namespace as the current class and is called +Instance+.
+        #
+        # @return [Class\Proc] the instance decorator to use
+        def instance_decorator
+          @instance_decorator ||= Object.const_get((
+            name.split('::')[0..-2] + ['Instance']
+          ).join('::'))
         end
       end
     end

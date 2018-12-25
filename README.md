@@ -250,7 +250,7 @@ module API
       module Decorator
         class Collection < Pragma::Decorator::Base
           include Pragma::Decorator::Collection
-          decorate_with Instance # specify the instance decorator
+          decorate_with Instance # this is optional, the default is 'Instance'
 
           property :total_cents, exec_context: :decorator
 
