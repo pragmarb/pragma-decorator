@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- `Collection` now assumes the instance decorator is `Instance`
+
 ## [2.2.6]
 
 ### Fixed

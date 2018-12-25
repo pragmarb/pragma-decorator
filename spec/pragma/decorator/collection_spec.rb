@@ -1,31 +1,52 @@
 # frozen_string_literal: true
 
 RSpec.describe Pragma::Decorator::Collection do
-  subject { decorator }
-
-  let(:decorator) { collection_decorator_klass.new(collection) }
-
-  let(:instance_decorator_klass) do
-    Class.new(Pragma::Decorator::Base) do
-      property :foo
-    end
-  end
-
-  let(:collection_decorator_klass) do
-    Class.new(Pragma::Decorator::Base) do
-      include Pragma::Decorator::Collection
-    end.tap do |klass|
-      klass.send(:decorate_with, instance_decorator_klass)
-    end
-  end
+  subject { decorator.new(collection) }
 
   let(:collection) { [OpenStruct.new(foo: 'bar')] }
 
-  let(:result) { JSON.parse(subject.to_json) }
+  context 'with the inferred instance decorator' do
+    before do
+      module CollectionTest
+        class Collection < Pragma::Decorator::Base
+          include Pragma::Decorator::Collection
+        end
 
-  it 'renders the collection' do
-    expect(result).to match('data' => [
-      'foo' => 'bar'
-    ])
+        class Instance < Pragma::Decorator::Base
+          property :foo
+        end
+      end
+    end
+
+    let(:decorator) { CollectionTest::Collection }
+
+    it 'renders the collection' do
+      expect(JSON.parse(subject.to_json)).to match('data' => [
+        'foo' => 'bar'
+      ])
+    end
+  end
+
+  context 'with a custom instance decorator' do
+    before do
+      module CollectionTest
+        class CustomInstance < Pragma::Decorator::Base
+          property :foo, as: :qux
+        end
+
+        class CustomCollection < Pragma::Decorator::Base
+          include Pragma::Decorator::Collection
+          decorate_with CustomInstance
+        end
+      end
+    end
+
+    let(:decorator) { CollectionTest::CustomCollection }
+
+    it 'renders the collection' do
+      expect(JSON.parse(subject.to_json)).to match('data' => [
+        'qux' => 'bar'
+      ])
+    end
   end
 end
