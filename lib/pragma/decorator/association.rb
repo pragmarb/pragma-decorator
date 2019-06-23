@@ -118,6 +118,7 @@ module Pragma
 
           expand.each do |property|
             next if self.class.associations.key?(property.to_sym) || property.include?('.')
+
             fail Association::AssociationNotFound, property
           end
         end

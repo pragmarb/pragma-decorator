@@ -103,8 +103,8 @@ RSpec.describe Pragma::Decorator::Association do
   context 'when render_nil is false' do
     before do
       decorator_klass.send(:belongs_to, :customer,
-        decorator: customer_decorator_klass,
-        render_nil: false
+                           decorator: customer_decorator_klass,
+                           render_nil: false
       )
     end
 
@@ -118,8 +118,8 @@ RSpec.describe Pragma::Decorator::Association do
   context 'when render_nil is true' do
     before do
       decorator_klass.send(:belongs_to, :customer,
-        decorator: customer_decorator_klass,
-        render_nil: true
+                           decorator: customer_decorator_klass,
+                           render_nil: true
       )
     end
 
@@ -137,8 +137,8 @@ RSpec.describe Pragma::Decorator::Association do
       end
 
       decorator_klass.send(:belongs_to, :customer,
-        decorator: customer_decorator_klass,
-        exec_context: :decorator
+                           decorator: customer_decorator_klass,
+                           exec_context: :decorator
       )
     end
 
@@ -150,7 +150,7 @@ RSpec.describe Pragma::Decorator::Association do
   context 'when decorator is a callable' do
     before do
       decorator_klass.send(:belongs_to, :customer,
-        decorator: ->(_associated_object) { customer_decorator_klass }
+                           decorator: ->(_associated_object) { customer_decorator_klass }
       )
     end
 
@@ -170,8 +170,8 @@ RSpec.describe Pragma::Decorator::Association do
   context 'when :as option is provided' do
     before do
       decorator_klass.send(:belongs_to, :user,
-        decorator: customer_decorator_klass,
-        as: :customer
+                           decorator: customer_decorator_klass,
+                           as: :customer
       )
     end
 
