@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added `Pragma::Decorator::Error`, which was previously in
+  [pragma](https://github.com/pragmarb/pragma)
+
 ### Changed
 
 - Switch to Zeitwerk for autoloading
