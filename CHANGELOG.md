@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Added `Pragma::Decorator::Error`, which was previously in
   [pragma](https://github.com/pragmarb/pragma)
+- Added `Pragma::Decorator::Association::Expander`, which was previously in
+  [pragma](https://github.com/pragmarb/pragma)
 
 ### Changed
 
